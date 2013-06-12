@@ -1,0 +1,11 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Kasten - ABA Cient&iacute;fica S.A" %>
+<com:TContent ID="Main">
+ <fieldset>
+ <div id="post"><br/>
+
+  <h1>Acceso Denegado</h1>
+   <div><b>Lo sentimos, no tiene acceso al modulo o accion al cual esta intentando acceder o ejecutar<br/><b><br/></div>
+   <input Type="button" Value="Ok" onClick="javascript:history.go(-1)"><br/><br/>	
+ </div>
+</fieldset>
+</com:TContent>

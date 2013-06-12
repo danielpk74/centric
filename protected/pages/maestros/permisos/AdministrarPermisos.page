@@ -1,0 +1,116 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Centric"%>
+<com:TContent ID="Main">
+    <div class="post">
+        
+        <br/>
+        <h3 class="title"> Departamentos </h3><hr/>
+        
+        <br/><br/>
+        <div class="entry">
+            
+            <com:TActiveDataGrid 
+                ID="ADGDepartamentos"
+                AutoGenerateColumns="false"
+                CssClass="table table-striped table-bordered table-condensed"
+                HeaderStyle.CssClass="header-fondo"
+                ItemStyle.CssClass="item-style"
+                AlternatingItemStyle.CssClass="alternating-style"
+                AllowSorting="true"
+                AllowPaging="true"
+                PageSize="20"
+                PagerStyle.CssClass="grid-pager"
+                PagerStyle.Mode="Numeric"
+                OnPageIndexChanged="changePage"
+                OnPagerCreated="pagerCreated"
+                OnSortCommand="sortData"
+                OnUpdateCommand="listOpciones"
+                OnEditCommand="EditarDepartamento"
+                OnDeleteCommand="EliminarDepartamento">
+                
+                <com:TActiveBoundColumn Id="ClmCodDepartamento" DataField="CodDepartamento"  HeaderText="Id" HeaderStyle.Width="20px"/>
+                <com:TActiveBoundColumn Id="ClmNombre" DataField="NmDepartamento"  HeaderText="Nombre" HeaderStyle.Width="20px" />
+                
+                <com:TTemplateColumn HeaderText="Acción" HeaderStyle.Width="60px" ItemStyle.HorizontalAlign="Center"  >
+                    <prop:ItemTemplate>
+                        
+                        <com:TImageButton 
+                            ImageUrl="img/editar.png"	
+                            Width="23px"
+                            ToolTip="Editar" 
+                            CommandName="edit"/>
+                        
+                        <com:TImageButton
+                            ImageUrl="img/quitar.png"	
+                            Width="23px"
+                            ToolTip="Inactivar" 
+                            Attributes.onclick="if(!confirm('El departamento quedara inactivo.\n ¿Desea continuar?')) return false;"
+                            CommandName="delete"/>
+                    </prop:ItemTemplate>
+                </com:TTemplateColumn>
+            </com:TActiveDataGrid>
+            
+            <com:TImageButton
+                            Text="Crear"	
+                            ImageUrl="img/nuevo.png"	
+                            Width="32px"
+                            ToolTip="Ingresar" 
+                            OnClick="CrearDepartamento"/>
+
+        </div>
+       
+        <br/>
+        
+        <h3 class="title"> Filtro de Busqueda </h3><hr/>
+        <fieldset>
+            
+            <table id="main-all-table-form">
+
+                <tr>
+                    <td class="td-label"><com:TLabel Text="Nombre"/></td>
+                <td class="td-in"><com:TTextBox ID="TxtNombreB" Columns="40"/></td>
+                </tr>
+                
+                <tr>
+                    <td class="td-label" width="100px"><com:TCheckBox ID="OptTodos" Text="Todos" TextAlign="Left"/></td>
+                </tr>
+
+            </table>
+        
+        </fieldset>
+        
+        <%include Application.layouts.Buscar%>
+
+        <com:NModalPanel ID="mpnlDepartamentos" >
+            <div class="NModal">
+                <fieldset>
+
+                <com:TActiveLabel ID="ALblAccion" font.Bold="true"/>
+                <hr/>
+
+                <table id="main-all-table-form" >
+                    <tr>
+                        <td>              
+    			   
+    			  <tr>
+                    <td class="td-label"><com:TLabel Text="Nombre:"/></td>
+                    <td class="td-in"><com:TActiveTextBox ID="TxtNombre"/>*<br/>
+      				     </td>
+		</tr> 
+
+                <tr>     	        
+                        <td><com:TActiveImageButton ImageUrl="img/cancelar.png" Text="Cancelar" ToolTip="Cancelar" BorderWidth="0" OnClick="OcultarModal" Width="32px"/></td>
+                        <td><com:TActiveImageButton ImageUrl="img/aceptar.png" Text="Guardar" ToolTip="Guardar" BorderWidth="0" OnClick="GuardarDatos" Width="32px"/></td>
+                </tr>
+                    </td>
+                    </tr>
+                </table>
+                </fieldset>
+            </div>
+        </com:NModalPanel>
+
+        <!--<div class="meta">
+            <p class="links"><a href="#" class="more">Read full article</a> <b>|</b> <a href="#" class="comments">Comments (32)</a></p>
+        </div>-->
+    </div>
+    <br/><br/>
+</com:TContent>

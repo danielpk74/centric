@@ -1,0 +1,80 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title>Login Centric - Cuentas al Dia</title>
+        <link href="themes/Default/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="themes/Default/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+        <script src="themes/Default/bootstrap/js/jquery-1.7.2.js"></script>
+        <script src="themes/Default/bootstrap/js/bootstrap.js"></script>
+
+        <link href="themes/Default/login-box.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+
+	<div id="header">
+		
+		<div class="page-full-width cf">
+	
+			<div id="login-intro" class="fl">
+			
+				<h1>Ingreso a Centric</h1>
+				<h5>Sistema de Informaci&oacute;n y administraci&oacute;n de Cartera</h5>
+			
+			</div> <!-- login-intro -->
+			
+			
+		</div> <!-- end full-width -->	
+
+	</div>
+
+
+
+        <div ID="contenido">
+        <com:TForm ID="login_form">
+                
+			<fieldset>
+
+				<p>
+					<label for="login-username">USUARIO</label>
+					<com:TTextBox ID="usuario" CssClass="round full-width-input"/>
+                                        <com:TRequiredFieldValidator
+                                        ControlToValidate="usuario"
+                                        ErrorMessage="<br/>Introduzca su nombre de usuario."
+                                        Display="Dynamic"/>
+				</p>
+
+				<p>
+					<label for="login-password">CONTRASE&Ntilde;A</label>
+					<com:TTextBox ID="contrasena" TextMode="Password" CssClass="round full-width-input"/>
+
+                                        <com:TRequiredFieldValidator
+                                            ControlToValidate="contrasena"
+                                            ErrorMessage="<br/>Introduzca su contrase&ntilde;a."
+                                            Display="Dynamic"/>
+
+                                        <com:TCustomValidator
+                                            ControlToValidate="contrasena"
+                                            ErrorMessage="<br/>Nombre de usuario o contrase&ntilde;a no v&aacute;lido."
+                                            Display="Dynamic"
+                                            OnServerValidate="validateUser"/>
+				</p>
+
+				<com:TImageButton ImageUrl="img/login-btn.png" width="103" Onclick="BotonLogin" height="42" style="margin-left:90px;" />
+
+			</fieldset>
+                        
+
+
+            </com:TForm>
+            </div>
+
+	<div id="footer">
+
+		<p>&copy; Copyright 2013 <a href="http://www.tumesadeayuda.com">Tu mesa de Ayuda</a>. All rights reserved.</p>
+	
+	</div>
+        </body>
+   </html>

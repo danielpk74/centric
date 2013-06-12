@@ -1,0 +1,13 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Centric" %>
+<com:TContent ID="Main">
+ <fieldset>
+ <div id="post"><br/>
+
+  <h1>Cerrar sesi&oacute;n...</h1>
+   <div><b>Est&aacute; apunto de cerrar la sesi&oacute;n, desea continuar?<br/><b><br/></div>
+   
+   <com:TButton Text="Continuar" OnClick="BotonLogout" />
+   <input Type="button" Value="Cancelar" onClick="javascript:history.go(-1)"><br/><br/>	
+ </div>
+</fieldset>
+</com:TContent>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<application id="centric" mode="Debug">
+  <paths>
+    <using namespace="Application.pages.imprimir.*" />
+    <using namespace="Application.database.*" />
+    <using namespace="Application.librerias.*" />
+    <using namespace="Application.layouts.*" />
+    <using namespace="Application.App_Code.*" />
+    <using namespace="System.Web.UI.ActiveControls.*" />
+  </paths>
+
+  <!-- configurations for modules -->
+   <modules>
+    <module class="System.Data.ActiveRecord.TActiveRecordConfig" EnableCache="false">
+     <database ConnectionString="mysql:host=localhost;dbname=centric;port=3306" Username="tumesade_centric" Password="C3ntr1c456" />
+    </module>
+    
+    <module class="System.I18N.TGlobalization" DefaultCharset="utf-8"/>
+    
+   <module id="auth" class="System.Security.TAuthManager" UserManager="users" LoginPage="auth.LoginUsuario" />
+    <module id="users" class="System.Security.TDbUserManager" UserClass="Application.UsuariosAuth" />
+  </modules>
+  
+  <module id="log" class="System.Util.TLogRouter">
+            <route class="TFileLogRoute"
+				MaxFileSize="1024"
+				LogPath="Application.logs"
+				LogFile="prado.log"
+				Levels="Notice,Warning,Error,Alert,Debug,Fatal,Info"
+				Categories="System, Application.*" />
+  </module>
+
+
+  <!-- configuration for available services -->
+  <services>
+    <service id="page" class="TPageService" DefaultPage="Home" />
+  </services>
+
+</application>

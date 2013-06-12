@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <authorization>
+    <allow pages="*" roles="admin,Gestor,Supervisor" users="@"/>
+    <deny users="guest" />
+  </authorization>
+</configuration>
