@@ -1,0 +1,92 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Centric"%>
+<com:TContent ID="Main">
+
+    <div class="post">
+
+        <br/>
+        <h3 class="title"> Informe de Cartera</h3><hr/>
+
+        <div id="entry">
+
+            <div id="loadingDiv" style="display:none; position: absolute;top:50%;left:50%;width:100px;z-index: 6"><img src="img/cargando.gif" />Cargando...</div>    
+            
+            <com:TActivePanel ID="APnlTareasUsuario" CssClass="well">
+                <fieldset>
+                    <legend><b>Seleccione un usuario</b></legend>
+                    <com:TActiveDropDownList ID="CboClientes"
+                                             PromptText="(Seleccione)"
+                                             CausesValidation="false"
+                                             DataTextField="NombreCorto"
+                                             DataValueField="Identificacion"/>
+                    <br/><br/>
+                    
+                    
+                     <tr>
+                   <strong> <com:TLabel Text="Desde: "/></strong><com:TDatePicker ID="DtpFhDesde" DateFormat="yyyy/MMMM/dd" InputMode="DropDownList"/> <strong><com:TLabel Text="Hasta:"/></strong> <com:TDatePicker ID="DtpFhHasta" DateFormat="yyyy/MMMM/dd" InputMode="DropDownList"/></td>
+                    </tr>
+                </fieldset>
+            </com:TActivePanel>
+
+                <br/>
+        </div>
+        
+        <com:TImageButton ImageUrl="img/imprimir.png" Width="32" OnClick="GenerarInforme"/>
+        
+        <com:TLabel Text="Total Cartera: " /><com:TLabel ID="CarteraSum" />
+        
+         <com:TActiveDataGrid 
+            ID="DGGestion"
+            AutoGenerateColumns="false"
+            CssClass="table table-striped table-bordered table-condensed"
+            HeaderStyle.CssClass="header-fondo"
+            ItemStyle.CssClass="item-style"
+            AlternatingItemStyle.CssClass="alternating-style"
+            AllowSorting="true"
+            AllowPaging="true"
+            PageSize="40"
+            OnPageIndexChanged="changePage"
+            PagerStyle.CssClass="grid-pager"
+            PagerStyle.Mode="Numeric"
+            OnItemDataBound="OnItemDataBound">
+
+            <com:TActiveBoundColumn Id="ClmEmpresa" DataField="NombreExtendido" HeaderText="Empresa" HeaderStyle.Width="20px" Visible="true"/>
+            <com:TActiveBoundColumn Id="ClmGestion"  DataField="Descripcion"    HeaderText="Gestion" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmDeuda"  DataField="Saldo"    HeaderText="Deuda" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmParticipacion"  DataField="Participacion"    HeaderText="Participaci&oacute;n" HeaderStyle.Width="20px" />
+  
+        </com:TActiveDataGrid>
+       
+        
+        
+        <com:TActiveDataGrid 
+            ID="DGObligaciones"
+            AutoGenerateColumns="false"
+            CssClass="datagrid-datos"
+            HeaderStyle.CssClass="header-fondo"
+            ItemStyle.CssClass="item-style"
+            AlternatingItemStyle.CssClass="alternating-style"
+            AllowSorting="true"
+            AllowPaging="true"
+            PageSize="20"
+              OnPageIndexChanged="changePage"
+            PagerStyle.CssClass="grid-pager"
+            PagerStyle.Mode="Numeric">
+
+            <com:TActiveBoundColumn Id="ClmCodObligacion" DataField="CodObligacion" HeaderText="Cod" HeaderStyle.Width="20px" Visible="true"/>
+            <com:TActiveBoundColumn Id="ClmFhObligacion" DataField="FhObligacion" HeaderText="F. Obligacion" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmFhReporte" DataField="FhReporte"  HeaderText="Reportado" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmFhUltimoPago" DataField="FhUltimoPago" HeaderText="F. Ult Pago" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmIdTercero" DataField="IdTercero" HeaderText="Identificacion" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmNmTercero" DataField="NombreCorto" HeaderText="Moroso" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmIdTerceroPertenece" DataField="IdTerceroPertenece" HeaderText="Pertenece" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmTpObligacion" DataField="TpObligacion" HeaderText="Tp Obligacion" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmNrObligacion" DataField="NrObligacion" HeaderText="Nro Oblig" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmValorCuota" DataField="ValorCuota" HeaderText="Vr. Cuota" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmValorInicial" DataField="ValorInicial" HeaderText="Vr. Inicial" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmSaldo" DataField="Saldo" HeaderText="Saldo" HeaderStyle.Width="20px" DataFormatString="#number_format({0},2,',','.')"/>
+
+        </com:TActiveDataGrid>
+       
+    </div>
+    <br/><br/>
+</com:TContent>

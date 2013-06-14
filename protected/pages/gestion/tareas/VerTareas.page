@@ -1,0 +1,75 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Centric"%>
+<com:TContent ID="Main">
+    <div class="post">
+
+        <br/>
+        <h3 class="title"> Tareas </h3><hr/>
+
+        <div id="entry">
+
+            <div id="loadingDiv" style="display:none; position: absolute;top:50%;left:50%;width:400px;z-index: 6"><img src="img/cargando.gif" />Cargando...</div>    
+            <br/>
+
+            <com:TActiveDataGrid 
+                ID="ADGObligaciones"
+                DataKeyField="IdTercero"
+                AutoGenerateColumns="false"
+                CssClass="table table-striped table-bordered table-condensed"
+                HeaderStyle.CssClass="header-fondo"
+                ItemStyle.CssClass="item-style"
+                AlternatingItemStyle.CssClass="alternating-style"
+                AllowSorting="true"
+                AllowPaging="true"
+                PageSize="10"
+                PagerStyle.CssClass="grid-pager"
+                PagerStyle.Mode="Numeric"
+                OnItemDataBound="OnItemDataBound"
+                OnSortCommand="sortData">
+
+                <com:TTemplateColumn ID="ClmNrObligacionl" HeaderText="Nro Factura" HeaderStyle.Width="60px" ItemStyle.HorizontalAlign="Center"  >
+                    <prop:ItemTemplate>
+                        <com:TActiveLabel ID="NroFactura" Text="<%#$this->Parent->DataItem->NrObligacion%>"/>
+                        <com:TLinkButton ID="LnkbVerMas" OnClick="page.CargarTareas" Text="</br>Ver Todas" Visible="False"/>
+                    </prop:ItemTemplate>
+                </com:TTemplateColumn>
+                
+                <com:TBoundColumn Id="ClmValorInicial" DataField="ValorFactura" HeaderText="Vr. Factura" HeaderStyle.Width="20px" DataFormatString="#number_format({0},2,',','.')" />
+                <com:TBoundColumn Id="ClmValorReporte" DataField="ValorReporte" HeaderText="Vr. Reporte" HeaderStyle.Width="20px" DataFormatString="#number_format({0},2,',','.')" />
+                <com:TBoundColumn Id="ClmValorCuota" DataField="ValorCuota" HeaderText="Vr. Cuota" HeaderStyle.Width="20px" DataFormatString="#number_format({0},2,',','.')"/>
+
+                <com:TBoundColumn Id="ClmIdTercero" DataField="IdTercero" HeaderText="Identificacion" HeaderStyle.Width="20px" />
+                <com:TBoundColumn Id="ClmNmTercero" DataField="NombreCorto" HeaderText="Moroso" HeaderStyle.Width="20px" />
+                <com:TBoundColumn Id="ClmTelefono" DataField="Telefono" HeaderText="Telefono 1" HeaderStyle.Width="20px" />
+                <com:TBoundColumn Id="ClmTelefono2" DataField="Telefono2" HeaderText="Telefono 2" HeaderStyle.Width="20px" />
+                <com:TBoundColumn Id="ClmCodObligacion" DataField="CodObligacion" HeaderText="Cod" HeaderStyle.Width="20px" Visible="false"/>
+                <com:TBoundColumn Id="ClmFhObligacion" DataField="FhObligacion" HeaderText="F. Obligacion" HeaderStyle.Width="20px" />
+                <com:TBoundColumn Id="ClmFhReporte" DataField="FhReporte"  HeaderText="Reportado" HeaderStyle.Width="20px" />
+                <com:TBoundColumn Id="ClmFhUltimoPago" DataField="FhUltimoPago" HeaderText="F. Ult Pago" HeaderStyle.Width="20px" />
+                <com:TBoundColumn Id="ClmIdTerceroPertenece" DataField="Cliente" HeaderText="Pertenece" HeaderStyle.Width="20px" />
+
+                <com:TBoundColumn Id="ClmSaldo" DataField="Saldo" HeaderText="Saldo" HeaderStyle.Width="20px" DataFormatString="#number_format({0},2,',','.')"/>
+                <com:TBoundColumn Id="ClmIntereses" DataField="Intereses" HeaderText="Intereses" HeaderStyle.Width="20px" Visible="false"/>
+                
+                <com:TBoundColumn Id="ClmFhUltimaGestion" DataField="FechaUltimaGestion" HeaderText="Ultima Gestión" HeaderStyle.Width="20px"/>
+
+                <com:TTemplateColumn ID="ClmVer" HeaderText="Ver" HeaderStyle.Width="10px" ItemStyle.HorizontalAlign="Center">
+                    <prop:ItemTemplate>
+                        <com:THyperLink
+                            ImageUrl="img/Find.png"
+                            ToolTip="Ver"
+                            Style="width:10em"
+                            Target="_self"
+                            NavigateUrl="?page=gestion.tareas.VerInformacion&Ct=<%#$this->Parent->DataItem->CodTarea%>"/>
+                    </prop:ItemTemplate>
+                </com:TTemplateColumn>
+
+            </com:TActiveDataGrid>
+        </div>
+
+        <!--<div class="meta">
+            <p class="links"><a href="#" class="more">Read full article</a> <b>|</b> <a href="#" class="comments">Comments (32)</a></p>
+        </div>-->
+
+    </div>
+    <br/><br/>
+</com:TContent>

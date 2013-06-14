@@ -1,0 +1,33 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Centric"%>
+<com:TContent ID="Main">
+
+    <div class="post">
+
+        <br/>
+        <h3 class="title"> Informe de Ingreso por Usuario</h3><hr/>
+
+        <div id="entry">
+
+            <div id="loadingDiv" style="display:none; position: absolute;top:50%;left:50%;width:100px;z-index: 6"><img src="img/cargando.gif" />Cargando...</div>    
+            
+            
+            <com:TActivePanel ID="APnlTareasUsuario" >
+                <fieldset>
+                    <legend><b>Seleccione un usuario</b></legend>
+                    <com:TActiveDropDownList ID="CboUsuarios"
+                                             PromptText="(Seleccione)"
+                                             CausesValidation="false"
+                                             DataTextField="Usuario"
+                                             DataValueField="Usuario"/>
+                    <br/>
+                </fieldset>
+            </com:TActivePanel>
+
+                <br/>
+        </div>
+        
+        <com:TImageButton ImageUrl="img/imprimir.png" Width="32" OnClick="GenerarInforme"/>
+       
+    </div>
+    <br/><br/>
+</com:TContent>

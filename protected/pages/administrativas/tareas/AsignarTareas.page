@@ -1,0 +1,170 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Centric"%>
+<com:TContent ID="Main">
+
+    <div class="post">
+
+        <h3 class="title">Asignar Tareas</h3><hr/>        
+        
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#gestores" data-toggle="tab">Asignar a Gestor</a></li>
+            <li><a href="#conceptos" data-toggle="tab">Asignar Aleatoriamente</a></li>                        
+            
+            <com:TActiveButton ID="ABtnFiltrar" CssClass="btn btn-mini" Text="Buscar" style="float: right;" OnClick="FiltrarObligaciones">
+                <prop:ClientSide OnLoading="Element.show('loadingDiv')" OnComplete="Element.hide('loadingDiv')"/>
+            </com:TActiveButton>   
+            
+            <com:TActiveDropDownList ID="CboCampanas" DataTextField="NombreCampana" DataValueField="IdCampana" style="float: right;" PromptText="(Seleccione Campaña)"/>
+            <com:TDropDownList ID="CboEmpresas" style="float: right;"  PromptText="(Seleccione Empresa)" DataTextField="NombreCorto" DataValueField="Identificacion"/>    
+            
+                        
+            <com:TButton ID="ABtnFildtrar" Text="Buscar" style="float: right;"  Visible="false" OnClick="FiltrarObligaciones"/>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="gestores">                
+                <fieldset id="fieldset-info">
+                    <legend>
+                       <com:TActiveDropDownList ID="CboUsuarios"
+                            PromptText="(Seleccione Gestor)"
+                            CausesValidation="false"
+                            DataTextField="Usuario"
+                            DataValueField="Usuario"/>
+                    
+                    </legend>
+                </fieldset>
+            </div>
+            
+            <div class="tab-pane" id="conceptos">
+                <fieldset id="fieldset-info">
+                    <com:TActiveButton CssClass="btn" CausesValidation="false" ID="BtnTarasAleatorias" Text="Asignacion Aleatoria" OnCallBack="AsignarTareasAleatorias">
+                        <prop:ClientSide OnLoading="Element.show('loadingDiv')" OnComplete="Element.hide('loadingDiv')"/>
+                    </com:TActiveButton>               
+                <hr>
+                </fieldset>
+            </div>
+        </div>       
+        
+        <!-- Formulario Busqueda-->
+        <div id="loadingDiv" style="display:none; position: absolute;top:50%;left:50%;width:100px;z-index: 6"><img src="img/cargando.gif" />Cargando...</div>    
+            <com:THyperLink Text="Mas filtros"  Attributes.OnClick="Effect.toggle('fieldset-otros-filtros', 'appear');return false"/>
+     
+            <fieldset id="fieldset-otros-filtros" style="display:none; position: relative;">                    
+                <com:TLabel Text="Saldos" Font.Bold="true"/>
+                <com:TDropDownList ID="CboRangos"/> 
+                <com:TTextBox ID="TxtRangos" /> 
+
+                <com:TRangeValidator
+                    EnableClientScript="true"
+                    ControlToValidate="TxtRangos"
+                    DataType="Integer"                                                
+                    ErrorMessage="Solo se permiten n&uacute;meros." /> 
+
+                <com:TCheckBox ID="ChkCompromisos" Text="Compromisos de Pago" Visible="False" /> 
+                <com:TCheckBox ID="ChkAcuerdosIncumplidos" Text=" Acuerdos Incumplidos"  Visible="False"/>          
+                <hr>
+            </fieldset>
+        </form>  
+
+        <div id="documentosGestion" class="tab-content">
+
+        <com:TActivePanel ID="APnlTareasUsuario">
+
+        <h3>Obligaciones Pendientes</h3>
+        <com:TActiveDataGrid 
+            ID="ADGObligaciones"
+            DataKeyField="IdTercero"
+            AutoGenerateColumns="false"
+            CssClass="table table-striped table-bordered table-condensed"
+            HeaderStyle.CssClass="header-fondo"
+            ItemStyle.CssClass="item-style"
+            AlternatingItemStyle.CssClass="alternating-style"
+            AllowSorting="true"
+            AllowPaging="true"
+            PageSize="10"
+            PagerStyle.CssClass="grid-pager"
+            PagerStyle.Mode="Numeric"
+            OnPageIndexChanged="changePage"
+            OnItemDataBound="OnItemDataBound"
+            OnPagerCreated="pagerCreated"
+            OnSortCommand="sortData">
+            
+            <com:TTemplateColumn ID="ClmNrObligacion" HeaderText="Nro Factura" HeaderStyle.Width="60px" ItemStyle.HorizontalAlign="Center"  >
+                <prop:ItemTemplate>
+                    <com:TActiveLabel ID="NroFactura" Text="<%#$this->Parent->DataItem->NrObligacion%>"/>
+                        <com:TLinkButton ID="LnkbVerMas" OnClick="page.CargarObligaciones" Text="</br>Ver Todas" Visible="False"/>
+                </prop:ItemTemplate>
+            </com:TTemplateColumn>
+            
+            <com:TActiveBoundColumn Id="ClmFhObligacion" DataField="FhObligacion" HeaderText="Fecha Factura" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmNombreCorto" DataField="NombreCorto" HeaderText="Razon Social" HeaderStyle.Width="20px"/>
+            <com:TActiveBoundColumn Id="ClmIdTercero" DataField="IdTercero" HeaderText="NIT" HeaderStyle.Width="20px"/>
+            
+            <com:TActiveBoundColumn Id="ClmFhVencimiento" DataField="FhVencimientoObligacion" HeaderText="Fecha Vencimiento" HeaderStyle.Width="20px"/>
+            
+            <com:TTemplateColumn  ID="ClmDiasVencidos" HeaderText="Dias de Vencido" ItemStyle.HorizontalAlign="Right" HeaderStyle.Width="20px" >
+                <prop:ItemTemplate>
+                    <com:TActiveLabel ID="LblVencidos"/>
+                </prop:ItemTemplate>
+            </com:TTemplateColumn>
+            
+            <com:TTemplateColumn  ID="ClmDiasFacturado" HeaderText="Dias Facturado" ItemStyle.HorizontalAlign="Right" HeaderStyle.Width="20px">
+                <prop:ItemTemplate>
+                    <com:TActiveLabel ID="LblDiasFacturado"/>
+                </prop:ItemTemplate>
+            </com:TTemplateColumn>
+            
+            <com:TActiveBoundColumn Id="ClmNombres" DataField="Nombres" HeaderText="Nombres" HeaderStyle.Width="20px" Visible="false"/>
+            <com:TActiveBoundColumn Id="ClmApellidos" DataField="Apellidos" HeaderText="Apellidos" HeaderStyle.Width="20px" Visible="false"/>
+            <com:TActiveBoundColumn Id="ClmBarrio" DataField="Barrio" HeaderText="Barrio" HeaderStyle.Width="20px" Visible="false"/>          
+            <com:TActiveBoundColumn Id="ClmValorInicial" DataField="ValorFactura"  DataFormatString="#number_format({0},2,',','.')" HeaderText="Vr. Factura" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmValorReporte" DataField="ValorReporte"  DataFormatString="#number_format({0},2,',','.')" HeaderText="Vr. Reporte" HeaderStyle.Width="20px" />
+            
+            <com:TActiveBoundColumn Id="ClmHonorarios" DataField="Honorarios" HeaderText="Honorarios" HeaderStyle.Width="20px" Visible="false"/>
+            <com:TActiveBoundColumn Id="ClmIntereses" DataField="Intereses" HeaderText="Intereses" HeaderStyle.Width="20px" Visible="false"/>
+            <com:TActiveBoundColumn Id="ClmCodObligacion" DataField="CodObligacion" HeaderText="Cod" HeaderStyle.Width="20px" Visible="false"/>
+
+            <com:TActiveBoundColumn Id="ClmFhReporte" DataField="FhReporte"  HeaderText="Reportado" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmFhUltimoPago" DataField="FhUltimoPago" HeaderText="F. Ult Pago" HeaderStyle.Width="20px" Visible="false"/>
+            <com:TActiveBoundColumn Id="ClmTpObligacion" DataField="TpObligacion" HeaderText="Tp Obligacion" HeaderStyle.Width="20px" Visible="false"/>
+            <com:TActiveBoundColumn Id="ClmValorCuota" DataField="ValorCuota" HeaderText="Vr. Cuota" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmEstado" DataField="Estado" HeaderText="Estado" HeaderStyle.Width="20px" Visible="false"/>
+            <com:TActiveBoundColumn Id="ClmSaldo" DataField="Saldo" HeaderText="Saldo" HeaderStyle.Width="20px" />
+
+            <com:TTemplateColumn ID="ClmObservaciones" HeaderText="Observaciones" HeaderStyle.Width="60px" ItemStyle.HorizontalAlign="Center"  >
+                <prop:ItemTemplate>
+                    <com:TTextBox ID="TxtObservaciones" CssClass="span2" CausesValidation="false"/>
+                </prop:ItemTemplate>
+            </com:TTemplateColumn>
+
+            <com:TTemplateColumn ID="ClmAsignar" HeaderText="Asignar" HeaderStyle.Width="10px" ItemStyle.HorizontalAlign="Center"  >
+                <prop:ItemTemplate>
+                    <com:TCheckBox ID="ChkAsignar" CausesValidation="false"/>
+                </prop:ItemTemplate>
+            </com:TTemplateColumn>
+
+        </com:TActiveDataGrid>
+
+        <com:TActiveImageButton ID="IBtnAsignar2" ImageUrl="img/aceptar.png" OnClick="AsignarTareaUsuarios" ToolTip="Asignar Tareas Seleccionadas" Style="Float:right">
+            <prop:ClientSide OnLoading="Element.show('loadingDiv')" OnComplete="Element.hide('loadingDiv')"/>
+        </com:TActiveImageButton>
+        
+        
+        <com:TButton Text="Asignar" OnClick="AsignarTareaUsuarios"/>
+       
+        <com:TActiveImageButton Visible="false" ID="IBtnAsignar" ImageUrl="img/aceptar.png" OnCallBack="AsignarTareaUsuarios" ToolTip="Asignar Tareas Seleccionadas" Style="Float:right">
+            <prop:ClientSide OnLoading="Element.show('loadingDiv')" OnComplete="Element.hide('loadingDiv')"/>
+        </com:TActiveImageButton>
+
+    </com:TActivePanel>
+        </div>
+    </div>
+
+    <%include Application.layouts.ObligacionesUsuario%>
+
+
+        <!--<div class="meta">
+            <p class="links"><a href="#" class="more">Read full article</a> <b>|</b> <a href="#" class="comments">Comments (32)</a></p>
+        </div>-->
+    </div>
+    <br/><br/>
+</com:TContent>

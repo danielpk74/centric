@@ -1,0 +1,359 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Centric"%>
+<com:TContent ID="Main">
+
+
+
+    <div class="mainContent">
+        <com:THyperLink NavigateUrl="#" ID="LblFechaUltimaGestion" Style="float: right"/>
+        <h3 class="title"> Nro Factura <com:TLabel ID="LblCodObligacion"/> </h3><hr/>
+
+        <com:THyperLink NavigateUrl="#" ID="LblNroTareas" Style="float: right"/> 
+
+        <com:TButton ID="LBtnAtras" CssClass="btn btn-mini" Text="Atras" CausesValidation="false" OnClick="Atras"/> <com:TButton ID="LBtnAdelante" CausesValidation="false" Text="Adelante" OnClick="Adelante" CssClass="btn btn-mini"/>    
+
+        <div id="loadingDiv" style="display:none; position: absolute;top:50%;left:50%;width:400px;z-index: 6"><img src="img/cargando.gif" />Cargando...</div>    
+
+        <table border="0" width="100%">
+
+
+            <tr>
+                <td width="100%">
+                    <div class="well">
+                        <table border="0" width="100%"  id="note"  class="main-all-table-form">
+
+                            <tr>      
+                                <td class="td-label" width="70px"><com:TLabel Text="Identificacion:"/></td>
+                            <td class="td-in" width="20px"><com:TLabel ID="LblIdTercero" Font.Bold="False"/></td>
+                            <td class="td-label" width="70px"><com:TLabel Text="Nombre:"/></td>
+                            <td class="td-in" width="300px"><com:TLabel ID="LblNombreCorto" Font.Bold="False"/></td>
+                            <td class="td-label" width="70px"><com:TLabel Text="Telefono:"/></td>
+                            <td class="td-in" width="300px"><com:TLabel ID="LblTelefono" Font.Bold="False"/></td>
+                            </tr>
+
+                            <tr>
+                                <td class="td-label" width="70px"><com:TLabel Text="Telefono 2:"/></td>
+                            <td class="td-in" width="300px"><com:TLabel ID="LblTelefono2" Font.Bold="False"/></td>
+                            <td class="td-label" width="70px"><com:TLabel Text="Direccion:"/></td>
+                            <td class="td-in" width="300px"><com:TLabel ID="LblDireccion" Font.Bold="False"/></td>
+                            <td class="td-label" width="70px"><com:TLabel Text="Email:"/></td>
+                            <td class="td-in" width="300px"><com:TLabel ID="LblEmail" Font.Bold="False"/></td>
+                            </tr>
+
+                            <tr>
+                                <td class="td-label" width="70px"><com:TLabel Text="Forma de Pago:"/></td>
+                            <td class="td-in" width="300px"><com:TLabel ID="LblFormaPago" Font.Bold="False"/></td>
+                            <td class="td-label" width="170px"><com:TLabel Text="Saldo:"/></td> 
+                            <td class="td-in" width="300px"><com:TLabel ID="LblSaldo" Font.Bold="False"/></td>
+                            <td class="td-label" width="170px"><com:TLabel Text="Id Pertenece:"/></td>
+                            <td class="td-in" width="300px"><com:TLabel ID="LblIdTerceroPertenece" Font.Bold="False"/>-<com:TLabel ID="LblNmTerceroPertenece" Font.Bold="False"/></td>
+                            </tr>
+                        </table>
+
+                </td>
+                </div>
+            </tr>
+
+            <td>
+                <table border="0">
+                    <tr>
+                        <td>
+
+                    <com:TActiveDataGrid 
+                        ID="ADGAbonos"
+                        AutoGenerateColumns="false"
+                        CssClass="datagrid-datos"
+                        HeaderStyle.CssClass="header-fondo"
+                        ItemStyle.CssClass="item-style"
+                        AlternatingItemStyle.CssClass="alternating-style"
+                        AllowSorting="true"
+                        AllowPaging="true"
+                        PageSize="200"
+                        PagerStyle.CssClass="grid-pager"
+                        PagerStyle.Mode="Numeric"
+                        OnSortCommand="sortData">
+
+                        <com:TActiveBoundColumn Id="ClmCodAbono" DataField="CodAbono" HeaderText="Cod" HeaderStyle.Width="5px" Visible="true"/>
+                        <com:TActiveBoundColumn Id="ClmFhAbono" DataField="FhAbono" HeaderText="F. Abono" HeaderStyle.Width="5px" />
+                        <com:TActiveBoundColumn Id="ClmCuentaAbono" DataField="CuentaAbono" HeaderText="Cuenta" HeaderStyle.Width="5px" />
+                        <com:TActiveBoundColumn Id="ClmValorAbono" DataField="ValorAbono" HeaderText="Valor Abonado" HeaderStyle.Width="5px" />
+                        <com:TActiveBoundColumn Id="ClmCodFormaPago" DataField="CodFormaPago" HeaderText="Forma Pago" HeaderStyle.Width="5px" />
+                        <com:TActiveBoundColumn Id="ClmCodBanco" DataField="CodBanco" HeaderText="Banco" HeaderStyle.Width="5px" />
+                        <com:TActiveBoundColumn Id="ClmSaldo" DataField="Saldo" HeaderText="Saldo" HeaderStyle.Width="5px" />
+                    </com:TActiveDataGrid>
+
+            </td>
+
+        </table>
+        </td>
+
+        </tr>
+        <tr>
+            <td rowspan="1">
+                <a href="#myModal" role="button" class="btn btn-mini btn-success" data-toggle="modal" style="float: right">Registrar Gestion</a><br><br>
+                <a href="?page=gestion.tareas.VerTareas" class="btn btn-mini btn-danger" style="float: right">Volver</a>
+                <h3>Seguimiento de Gestión</h3>
+                <hr>
+            </td>
+        <tr>
+
+            <td colspan="2">
+
+        <com:TActiveDataGrid 
+            ID="ADGGestion"
+            AutoGenerateColumns="false"
+            CssClass="table table-striped table-bordered table-condensed"can
+            HeaderStyle.CssClass="header-fondo"
+            ItemStyle.CssClass="item-style"
+            AlternatingItemStyle.CssClass="alternating-style"
+            AllowSorting="true"
+            AllowPaging="true"
+            PageSize="10"
+            Width="100%"
+            PagerStyle.CssClass="grid-pager"
+            PagerStyle.Mode="Numeric"
+            OnSortCommand="sortData"
+            OnItemDataBound="OnItemDataBound">
+
+            <com:TActiveBoundColumn Id="ClmCodGestion" DataField="CodGestion" HeaderText="Cod" HeaderStyle.Width="5px" Visible="false"/>
+            <com:TActiveBoundColumn Id="ClmCodConceptoGestion" DataField="ConceptoCobranza.Descripcion" HeaderText="Concepto" HeaderStyle.Width="5px" />
+            <com:TActiveBoundColumn Id="ClmFechaGestion" DataField="FechaGestion" HeaderText="Fecha" HeaderStyle.Width="5px" />
+            <com:TActiveBoundColumn Id="ClmCodTercero" Visible="false" DataField="CodTercero" HeaderText="Código Tercero" HeaderStyle.Width="5px" />
+            <com:TActiveBoundColumn Id="ClmObservaciones" DataField="Observaciones" HeaderText="Observaciones" HeaderStyle.Width="5px" />
+            <com:TActiveBoundColumn Id="ClmUsuario" DataField="Usuario" HeaderText="Usuario" HeaderStyle.Width="5px" />
+            <com:TActiveBoundColumn Id="ClmTelefono" DataField="Telefono" HeaderText="Teléfono" HeaderStyle.Width="5px" />
+
+            <com:TTemplateColumn ID="ClmGridCompromisos" HeaderText="Compromisos" HeaderStyle.Width="10px">
+                <prop:ItemTemplate>
+                    <com:TActiveDataGrid 
+                        ID="ADGCompromisos"
+                        AutoGenerateColumns="false"
+                        CssClass="table table-striped table-bordered table-condensed"   
+                        HeaderStyle.CssClass="header-fondo"
+                        ItemStyle.CssClass="item-style"
+                        AlternatingItemStyle.CssClass="alternating-style"
+                        AllowSorting="false"
+                        AllowPaging="false"
+                        PageSize="10"
+                        Height="100%"
+                        Width="100%"
+                        PagerStyle.CssClass="grid-pager"
+                        PagerStyle.Mode="Numeric">
+
+                        <com:TActiveBoundColumn Id="ClmCodCompromiso" 
+                                                DataField="CodCompromiso" 
+                                                HeaderText="Cod" 
+                                                HeaderStyle.Width="5px" Visible="false"/>
+
+                        <com:TActiveBoundColumn Id="ClmFechaCompromiso" 
+                                                DataField="FhCompromiso" 
+                                                HeaderText="Fecha" 
+                                                HeaderStyle.Width="5px" Visible="false"/>
+
+                        <com:TActiveBoundColumn Id="ClmFechaPago" 
+                                                DataField="FhPagoCompromiso" 
+                                                HeaderText="Fh Compromiso" 
+                                                HeaderStyle.Width="5px" Visible="true"/>
+
+                        <com:TActiveBoundColumn Id="ClmValorCompromiso" 
+                                                DataField="Valor" 
+                                                HeaderText="Valor" 
+                                                HeaderStyle.Width="5px" Visible="true"/>
+
+                        <com:TActiveBoundColumn Id="ClmCuotas" 
+                                                DataField="Cuotas" 
+                                                HeaderText="Cuotas" 
+                                                HeaderStyle.Width="5px" Visible="true"/>
+
+                        <!--CodConceptoCompromiso.Descripcion-->
+                        <com:TActiveBoundColumn Id="ClmConceptoCompromiso" 
+                                                DataField="ConceptoCompromiso" 
+                                                HeaderText="Concepto" 
+                                                HeaderStyle.Width="5px" Visible="true"/>
+
+                        <com:TActiveBoundColumn Id="ClmObservaciones" 
+                                                DataField="Observaciones" 
+                                                HeaderText="Observaciones" 
+                                                HeaderStyle.Width="5px" Visible="true"/>
+
+                        <com:TActiveBoundColumn Id="ClmConceptoResultado" 
+                                                DataField="ConceptoResultado" 
+                                                HeaderText="Concepto" 
+                                                HeaderStyle.Width="5px" Visible="true"/>
+
+                        <com:TActiveBoundColumn Id="ClmObservacionResultado" 
+                                                DataField="ObservacionesResultado" 
+                                                HeaderText="Observacion Resultado" 
+                                                HeaderStyle.Width="5px" Visible="true"/>
+
+
+
+                        <com:TTemplateColumn ID="ClmCierreCompromiso" HeaderText="Acciones" HeaderStyle.Width="10px">
+                            <prop:ItemTemplate>
+                                <com:TActiveImageButton ImageUrl="img/Remove.png" Text="" OnClick="Page.CerrarCompromiso"  BorderWidth="0" Width="32px"/>
+                            </prop:ItemTemplate>
+                        </com:TTemplateColumn>
+
+                    </com:TActiveDataGrid>       
+
+                </prop:ItemTemplate>
+            </com:TTemplateColumn>
+        </com:TActiveDataGrid>       
+        </td>
+        </tr>
+        </tr>
+
+        </table>
+
+        <div class="modal hide" id="myModal">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Registro de Gestión</h3>
+            </div>    
+
+            <div class="modal-body">
+                <div class="well">   
+
+                    <div class="tabbable"> <!-- Only required for left/right tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">Registrar Gestión</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Registrar Compromiso</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                                <table>
+
+                                    <tr>
+                                        <td>              
+
+                                    <tr>
+                                        <td class="td-label"><com:TLabel Text="Concepto"/></td>
+                                    <td class="td-in"><com:TActiveDropDownList Id="CboConceptosGestion" 
+                                                                               Attributes.Required="true"
+                                                                               DataTextField="Descripcion" 
+                                                                               DataValueField="CodConcepto"
+                                                                               PromptText="(Seleccione)"
+                                                                               />*<br/>
+
+                                    </td>
+                                    </tr> 
+
+                                    <tr>
+                                        <td class="td-label"><com:TLabel Text="Telefono:"/></td>
+                                    <td class="td-in"><com:TActiveTextBox ID="TxtTelefono" />*<br/>
+                                    </td>
+                                    </tr> 
+
+                                    <tr>
+                                        <td class="td-label"><com:TLabel Text="Observaciones:"/><br/></td>
+                                    <td class="td-in">
+
+                                    <com:TTextBox ID="TxtComentariosGestion" TextMode="MultiLine" Rows="6" Columns="60" Font.Italic="true" MaxLength="500"/>
+
+                                </table>            
+                            </div>
+
+                            <div class="tab-pane" id="tab2">
+                                <table>
+                                    <div class="div-form" Style="display:none; position:relative" id="dvNuevo">
+                                        <br>
+                                        <tr>
+                                            <td class="td-label"><com:TLabel Text="Fecha Compromiso:"/><br/></td>
+                                        <td><com:TActiveDatePicker ID="DtpFhPagoCompromiso" DateFormat="yyyy-MM-dd" InputMode="TextBox" ShowCalendar="true"/></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="td-label"><com:TLabel Text="Valor Compromiso:"/><br/></td>
+                                        <td><com:TActiveTextBox ID="TxtValorCompromiso" Columns="8"/></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="td-label"><com:TLabel Text="Cuotas:"/><br/></td>
+                                        <td><com:TActiveTextBox ID="TxtCuotasCompromiso" Columns="8"/></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="td-label"><com:TLabel Text="Observaciones:"/><br/></td>
+                                        <td class="td-in">
+                                        <com:TTextBox ID="TxtComentariosCompromisos" TextMode="MultiLine" Rows="6" Columns="60" Font.Italic="true" MaxLength="500"/></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="td-label"><com:TLabel Text="Concepto"/><br/></td>
+                                        <td><com:TDropDownList ID="CboConceptosCompromisos" DataTextField="Descripcion" DataValueField="CodSubConcepto" PromptText="(Seleccione)"/></td>
+                                        </tr>
+                                    </div>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Cancelar</a>                
+                <com:TButton CssClass="btn btn-primary" Attributes.Style="data-dismiss='modal'" Text="Guardar" ToolTip="Guardar" OnClick="GuardarGestion"/>
+            </div>
+        </div>           
+
+        <com:NModalPanel ID="mpnlGestion" >
+            <div class="NModal" >
+                <fieldset>
+
+                    <com:TActiveLabel ID="ALblAccionGestion" Text="GESTION" font.Bold="true"/>
+                    <hr/>
+
+                    <table id="main-all-table-form" >
+
+                        <br><br><br><br>
+
+
+                        </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+        </com:NModalPanel>
+
+        <com:NModalPanel ID="mpnlCerrarCompromiso" >
+            <div class="NModal">
+                <fieldset>
+
+                    <com:TActiveLabel ID="ALblCierreCompromiso" Text="CERRAR COMPROMISO" font.Bold="true"/> <com:TActiveLabel ID="LblCodCompromiso" Visible="false"/>
+                    <hr/>
+
+                    <table id="main-all-table-form" >
+                        <tr>
+                            <td>              
+
+                        <tr>
+                            <td class="td-label"><com:TLabel Text="Concepto"/><br/></td>
+                        <td><com:TActiveDropDownList ID="CboConceptosCierreCompromisos" DataTextField="Descripcion" DataValueField="CodConcepto" PromptText="(Seleccione)"/></td>
+                        </tr>
+
+                        <tr>
+                            <td class="td-label"><com:TLabel Text="Observaciones:"/><br/></td>
+                        <td class="td-in">
+                        <com:TTextBox ID="TxtComentariosCierreCompromiso" TextMode="MultiLine" Rows="6" Columns="60" Font.Italic="true" MaxLength="500"/></td>
+                        </tr>           
+
+                        <tr>     	        
+                            <td><com:TActiveImageButton CustomData="mpnlCerrarCompromiso" ImageUrl="img/cancelar.png" Text="Cancelar" ToolTip="Cancelar" BorderWidth="0" OnClick="OcultarModal" Width="32px"/></td>
+                        <td><com:TActiveImageButton ImageUrl="img/aceptar.png" Text="Guardar" ToolTip="Guardar" Style="data-dismiss='modal'" BorderWidth="0" OnClick="GuardarCierreCompromiso" Width="32px"/></td>
+                        </tr>
+                        </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+        </com:NModalPanel>
+
+    </div>
+
+    <!--<div class="meta">
+        <p class="links"><a href="#" class="more">Read full article</a> <b>|</b> <a href="#" class="comments">Comments (32)</a></p>
+    </div>-->
+
+    <br/><br/>
+</com:TContent>

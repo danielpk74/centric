@@ -1,0 +1,143 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Centric"%>
+<com:TContent ID="Main">
+    <div class="post">
+
+        <br/>
+        <div class="left_articles">
+        <h3 class="title"> Ciudades </h3><hr/>
+
+        <br/><br/>
+        <div class="entry">
+
+            <com:TActiveDataGrid 
+                ID="ADGCiudades"
+                AutoGenerateColumns="false"
+                CssClass="table table-striped table-bordered table-condensed"
+                HeaderStyle.CssClass="header-fondo"
+                ItemStyle.CssClass="item-style"
+                AlternatingItemStyle.CssClass="alternating-style"
+                AllowSorting="true"
+                AllowPaging="true"
+                PageSize="10"
+                PagerStyle.CssClass="grid-pager"
+                PagerStyle.Mode="Numeric"
+                OnPageIndexChanged="changePage"
+                OnPagerCreated="pagerCreated"
+                OnSortCommand="sortData"
+                OnUpdateCommand="listOpciones"
+                OnEditCommand="EditarCiudad"
+                OnDeleteCommand="EliminarCiudad">
+
+                <com:TActiveBoundColumn Id="ClmId" DataField="CodCiudad"  HeaderText="Id" HeaderStyle.Width="20px" />
+                <com:TActiveBoundColumn Id="ClmNombre" DataField="NmCiudad"  HeaderText="Nombre" HeaderStyle.Width="20px" />
+                <com:TActiveBoundColumn Id="ClmDepartamento" DataField="Departamentos.NmDepartamento" HeaderText="Departamentos" HeaderStyle.Width="20px" />
+
+                <com:TTemplateColumn HeaderText="Acción" HeaderStyle.Width="60px" ItemStyle.HorizontalAlign="Center"  >
+                    <prop:ItemTemplate>
+
+                        <com:TImageButton 
+                            ImageUrl="img/editar.png"	
+                            Width="23px"
+                            ToolTip="Editar" 
+                            CommandName="edit"/>
+
+                        <com:TImageButton
+                            ImageUrl="img/quitar.png"	
+                            Width="23px"
+                            ToolTip="Inactivar" 
+                            Attributes.onclick="if(!confirm('La ciudad quedara inactiva.\n ¿Desea continuar?')) return false;"
+                            CommandName="delete"/>
+                    </prop:ItemTemplate>
+                </com:TTemplateColumn>
+            </com:TActiveDataGrid>
+
+            <com:TImageButton
+                Text="Crear"	
+                ImageUrl="img/nuevo.png"	
+                Width="32px"
+                ToolTip="Ingresar" 
+                OnClick="CrearCiudad"/>
+
+        </div>
+
+        <br/>
+
+        
+        <h3 class="title"> Filtro de Busqueda </h3><hr/>
+        <fieldset>
+
+            <table id="main-all-table-form">
+
+                <tr>
+                    <td class="td-label"><com:TLabel Text="Nombre: "/></td>
+                <td class="td-in"><com:TTextBox Attributes.OnFocus="fOptNombre" ID="TxtNombreB" Columns="40"/></td>
+                </tr>
+
+                <tr>
+                    <td class="td-label" width="100px"><com:TCheckBox ID="OptTodos" Text="Todos" TextAlign="Left"/></td>
+                </tr>
+
+            </table>
+
+        </fieldset>
+
+        <%include Application.layouts.Buscar%>  
+
+        <com:NModalPanel ID="mpnlCiudades" >
+            <div class="NModal">
+                <fieldset>
+
+                    <com:TActiveLabel ID="ALblAccion" font.Bold="true"/>
+                    <hr/>
+
+                    <table id="main-all-table-form" >
+                        <tr>
+                            <td>              
+
+                        <tr>
+                            <td class="td-label"><com:TLabel Text="Nombre:"/></td>
+                            <td class="td-in"><com:TActiveTextBox ID="TxtNombre"/>*<br/>
+                        </td>
+                        </tr> 
+
+
+
+                        <td>              
+
+                        <tr>
+                            <td class="td-label"><com:TLabel Text="Direcci&oacute;n:"/><br/></td>
+                            <td class="td-in">
+                                <com:TActiveDropDownList ID="CboDepartamentos"
+                                    PromptText="(Seleccione)"
+                                    DataTextField="NmDepartamento"
+                                    DataValueField="CodDepartamento"
+                                    CausesValidation="false"/>
+
+
+                                <com:TActiveLabel ID="Mensaje"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="td-label"><com:TLabel Text="Observaciones:"/><br/></td>
+                        <td class="td-in">
+                        <com:TTextBox ID="TxtComentarios" TextMode="MultiLine" Rows="6" Columns="60" Font.Italic="true" MaxLength="500"/></td>
+                        </tr>           
+
+                        <tr>     	        
+                            <td><com:TActiveImageButton ImageUrl="img/cancelar.png" Text="Cancelar" ToolTip="Cancelar" BorderWidth="0" OnClick="OcultarModal" Width="32px"/></td>
+                        <td><com:TActiveImageButton ImageUrl="img/aceptar.png" Text="Guardar" ToolTip="Guardar" BorderWidth="0" OnClick="GuardarDatos" Width="32px"/></td>
+                        </tr>
+                        </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+        </com:NModalPanel>
+
+        <!--<div class="meta">
+            <p class="links"><a href="#" class="more">Read full article</a> <b>|</b> <a href="#" class="comments">Comments (32)</a></p>
+        </div>-->
+    </div>
+    <br/><br/>
+</com:TContent>

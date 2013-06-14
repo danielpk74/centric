@@ -1,0 +1,33 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Centric"%>
+<com:TContent ID="Main">
+    <div class="post">
+        <br/>
+        <h3 class="title"> Cargar Datos </h3><hr/>
+        
+        <div id="mainContent">
+                <div class="btn-group" data-toggle="buttons-radio">
+                    <com:TRadioButton GroupName="Carga" ID="ChkTerceros"  Text="Clientes" CssClass="btn"/>
+                    <com:TRadioButton GroupName="Carga" ID="ChkMorosos"  Text="Morosos" CssClass="btn"/>
+                    <com:TRadioButton GroupName="Carga" ID="ChkObligaciones" Text="Obligaciones" CssClass="btn"/>
+                    <com:TRadioButton GroupName="Carga" ID="ChkAbonos" Text="Abonos" CssClass="btn"/>
+                    <com:TRadioButton GroupName="Carga" ID="ChkTodos" Text="Todos" CssClass="btn"/>
+                </div>                
+                
+                <br><br>
+            
+                <com:TFileUpload ID="fupArchivo" MaxFileSize="10048576"/> 
+                 
+                
+                <tr>                
+                    <td><com:TImageButton ImageUrl="img/Upload.png" ID="BtnCargarCartera" Text="Cargar" ToolTip="Cargar Registros" OnClick="Cargar"/></td>
+                </tr>   
+        </div>
+    </div>
+    
+    <!--<div class="meta">
+        <p class="links"><a href="#" class="more">Read full article</a> <b>|</b> <a href="#" class="comments">Comments (32)</a></p>
+    </div>-->
+    
+    </div>
+    <br/><br/>
+</com:TContent>
