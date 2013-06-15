@@ -1,0 +1,88 @@
+
+
+div#header { 
+    padding: 1.25em 0; /* 20/16 */ 
+}
+
+div#login-intro {
+	background: transparent url('bootstrap/img/login-icon.png') no-repeat left center;
+	padding: 0.312em 0 0.312em 3.125em;
+}
+	
+div#login-intro h1 { 
+    text-transform: uppercase; margin: 0.312em 0 0 0; 
+}
+	
+div#login-intro h5 {
+    color: #9498a1; 
+}
+
+
+div#contenido {
+	background: #f8f9fa url('bootstrap/img/artwork-pattern.png') repeat-x left bottom;
+	border: 1px solid #eeefef;
+	padding: 1.875em 0; /* 30/16 */
+}
+
+
+div#footer {
+	text-align: center;
+	padding: 1.875em 0; /* 30/16 */
+}
+
+
+
+.round {
+	border-radius: 0.3125em; /* 5/16 */
+	-moz-border-radius: 0.3125em; /* 5/16 */
+	-webkit-border-radius: 0.3125em; /* 5/16 */
+}
+
+.information-box {
+	border: 1px solid #cae0e5;
+	color: #5a9bab;
+}
+
+
+/* ---------- CLEARFIX ---------- */
+/* For modern browsers */
+.cf:before,
+.cf:after {
+    content: "";
+    display: table;
+}
+
+.cf:after { 
+    clear:both; 
+}
+
+/* For IE 6/7 (trigger hasLayout) */
+.cf { 
+    zoom: 1; 
+}
+
+.fl { 
+    float: left; 
+}
+
+/* Page Container Style */
+.page-full-width { 
+    padding: 0 1.875em; /* 30/16 */ 
+}    
+
+
+form#login_form {
+	width: 18.75em; /* 300/16 */
+	margin: 0 auto;
+}
+
+.full-width-input { 
+    width: 95%; 
+}
+
+form input[type="text"], input[type="password"], textarea {
+	border: 1px solid #d9dbdd;
+	padding: 0.7em 0.625em; /* 16/16 10/16 */
+	outline: none;
+        font-style: italic;
+}
