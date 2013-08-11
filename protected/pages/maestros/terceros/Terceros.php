@@ -79,34 +79,34 @@ class Terceros extends TPage {
 
         $this->mpnlTerceros->Show();
 
-//        $this->EnviarAccion();
+        $this->EnviarAccion();
 //
         $Tercero = TercerosRecord::ObtenerTercero('1', $Identificacion);
 //
         $this->TxtIdentificacion->Text = $Tercero->Identificacion;
         $this->TxtIdTerceroPertenece->Text = $Tercero->IdTerceroPertenece;
-//        $this->CboTipoIdentificacion->SelectedValue = $Tercero->TpIdentificacion;
-//        $this->TxtDigitoVerificacion->Text = $Tercero->DigitoVerificacion;
-//        $this->TxtNombreCorto->Text = $Tercero->NombreCorto;
-//        $this->TxtNombreExtendido->Text = $Tercero->NombreExtendido;
-//        $this->TxtNombre1->Text = $Tercero->Nombre;
-//        $this->TxtNombre2->Text = $Tercero->Nombre2;
-//        $this->TxtApellido1->Text = $Tercero->Apellido1;
-//        $this->TxtApellido2->Text = $Tercero->Apellido2;
-//        $this->TxtDireccion->Text = $Tercero->Direccion;
-//        $this->TxtTelefono->Text = $Tercero->Telefono;
-//        $this->TxtTelefono2->Text = $Tercero->Telefono2;
-//        $this->TxtFax->Text = $Tercero->Fax;
-//        $this->TxtEmail->Text = $Tercero->Email;
-//        $this->CboCiudades->SelectedValue = $Tercero->IdCiudad;
-//        $this->TxtContacto->Text = $Tercero->Contacto;
-//        $this->TxtCargoContacto->Text = $Tercero->CargoContacto;
-//        $this->TxtIdFormaPago->Text = $Tercero->IdFormaPago;
-//        $this->CboInactivo->SelectedValue = $Tercero->Inactivo;
-//        $this->TxtComentarios->Text = $Tercero->Comentarios;
-////        $this->TxtSaldoCartera->Text = $Tercero->SaldoCartera;
-//
-//        $this->TxtIdentificacion->Enabled = false;
+        $this->CboTipoIdentificacion->SelectedValue = $Tercero->TpIdentificacion;
+        $this->TxtDigitoVerificacion->Text = $Tercero->DigitoVerificacion;
+        $this->TxtNombreCorto->Text = $Tercero->NombreCorto;
+        $this->TxtNombreExtendido->Text = $Tercero->NombreExtendido;
+        $this->TxtNombre1->Text = $Tercero->Nombre;
+        $this->TxtNombre2->Text = $Tercero->Nombre2;
+        $this->TxtApellido1->Text = $Tercero->Apellido1;
+        $this->TxtApellido2->Text = $Tercero->Apellido2;
+        $this->TxtDireccion->Text = $Tercero->Direccion;
+        $this->TxtTelefono->Text = $Tercero->Telefono;
+        $this->TxtTelefono2->Text = $Tercero->Telefono2;
+        $this->TxtFax->Text = $Tercero->Fax;
+        $this->TxtEmail->Text = $Tercero->Email;
+        $this->CboCiudades->SelectedValue = $Tercero->CodCiudad;
+        $this->TxtContacto->Text = $Tercero->Contacto;
+        $this->TxtCargoContacto->Text = $Tercero->CargoContacto;
+        $this->TxtIdFormaPago->Text = $Tercero->IdFormaPago;
+        $this->CboInactivo->SelectedValue = $Tercero->Inactivo;
+        $this->TxtComentarios->Text = $Tercero->Comentarios;
+//        $this->TxtSaldoCartera->Text = $Tercero->SaldoCartera;
+
+        $this->TxtIdentificacion->Enabled = false;
     }
 
     /**
@@ -124,10 +124,12 @@ class Terceros extends TPage {
         if ($this->getViewState('Accion') == 2) {
             $Tercero = TercerosRecord::ObtenerTercero('1', $this->getViewState('Tercero'));
             $Tercero->Identificacion = $this->getViewState('Tercero');
-        }
-        // si se esta ingresando una nueva
-        else {
+            $this->mpnlTerceros->Hide();
+        }// si se esta ingresando una nueva
+        else{ 
             $Tercero->Identificacion = $this->TxtIdentificacion->Text;
+            }
+        
             $Tercero->FhCreacion = date('Y-m-d H:i:s');
 //        $this->TxtIdentificacion->Text = $Tercero->Identificacion;
             $Tercero->IdTerceroPertenece = $this->TxtIdTerceroPertenece->Text;
@@ -162,7 +164,7 @@ class Terceros extends TPage {
                 $Transaccion->rollBack();
                 LibGeneral::Error($this->Page, 'Se ha presentado un error durante la operacion, intentelo nuevamente.' . $e->getMessage());
             }
-        }
+        
     }
 
     public function InactivarTercero($sender, $param) {
