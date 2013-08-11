@@ -30,7 +30,7 @@ class VerTareas extends TPage {
                 FROM tareas LEFT JOIN obligaciones ON obligaciones.CodObligacion = tareas.CodObligacion LEFT JOIN
                      terceros ON obligaciones.IdTercero = terceros.Identificacion
                      LEFT JOIN terceros AS pertenece ON pertenece.Identificacion = terceros.IdTerceroPertenece
-                WHERE tareas.Usuario = '".$this->User->Name."' AND Cerrada = 0
+                WHERE tareas.Usuario = '" . $this->User->Name . "' AND Cerrada = 0
                 ORDER BY Aleatoria ASC";
 
         $Tareas = new TareasRecord();
@@ -53,6 +53,7 @@ class VerTareas extends TPage {
             }
 
             if (!in_array($this->ADGObligaciones->DataKeys[$item->ItemIndex], $arrayIdentificaciones)) {
+                $tempArray = $this->Identificaciones;
                 if (!in_array($this->ADGObligaciones->DataKeys[$item->ItemIndex], $this->Identificaciones)) {
 
                     $this->Identificaciones[] = $this->ADGObligaciones->DataKeys[$item->ItemIndex];
@@ -71,6 +72,14 @@ class VerTareas extends TPage {
         }
     }
 
-}
+    public function changePage($sender, $param) {
+        $this->ADGObligaciones->CurrentPageIndex = $param->NewPageIndex; // recupera la página que ha sido seleccionada y que será mostrada.
+        $this->CargarTareas(null,null);
+    }
 
+    public function pagerCreated($sender, $param) {
+        $param->Pager->Controls->insertAt(0, 'Page: ');
+    }
+
+}
 ?>

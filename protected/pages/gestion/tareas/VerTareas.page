@@ -23,8 +23,9 @@
                 PageSize="10"
                 PagerStyle.CssClass="grid-pager"
                 PagerStyle.Mode="Numeric"
-                OnItemDataBound="OnItemDataBound"
-                OnSortCommand="sortData">
+                OnPageIndexChanged="changePage"
+                OnPagerCreated="pagerCreated"
+                OnItemDataBound="OnItemDataBound">
 
                 <com:TTemplateColumn ID="ClmNrObligacionl" HeaderText="Nro Factura" HeaderStyle.Width="60px" ItemStyle.HorizontalAlign="Center"  >
                     <prop:ItemTemplate>
