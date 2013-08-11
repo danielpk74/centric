@@ -23,17 +23,17 @@
                 OnEditCommand="EditarCiudad"
                 OnDeleteCommand="EliminarCiudad">
 
-                <com:TActiveBoundColumn Id="ClmId" DataField="CodCiudad"  HeaderText="Id" HeaderStyle.Width="20px" />
+                <com:TActiveBoundColumn Id="ClmId" DataField="CodCiudad"  HeaderText="Código" HeaderStyle.Width="5px" />
                 <com:TActiveBoundColumn Id="ClmNombre" DataField="NmCiudad"  HeaderText="Nombre" HeaderStyle.Width="20px" />
                 <com:TActiveBoundColumn Id="ClmDepartamento" DataField="Departamentos.NmDepartamento" HeaderText="Departamentos" HeaderStyle.Width="20px" />
 
-                <com:TTemplateColumn HeaderText="Acción" HeaderStyle.Width="60px" ItemStyle.HorizontalAlign="Center"  >
+                <com:TTemplateColumn HeaderText="Acción" HeaderStyle.Width="30px" ItemStyle.HorizontalAlign="Center"  >
                     <prop:ItemTemplate>
 
                         <com:TImageButton 
                             ImageUrl="img/editar.png"	
                             Width="23px"
-                            ToolTip="Editar" 
+                            ToolTip="Editar"
                             CommandName="edit"/>
 
                         <com:TImageButton
