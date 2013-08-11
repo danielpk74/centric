@@ -31,7 +31,7 @@ class VerTareas extends TPage {
                      terceros ON obligaciones.IdTercero = terceros.Identificacion
                      LEFT JOIN terceros AS pertenece ON pertenece.Identificacion = terceros.IdTerceroPertenece
                 WHERE tareas.Usuario = '" . $this->User->Name . "' AND Cerrada = 0
-                ORDER BY Aleatoria ASC";
+                ORDER BY IdTercero ASC";
 
         $Tareas = new TareasRecord();
         $Tareas = TareasRecord::finder('TareasExtRecord')->findAllBySql($sql);
