@@ -93,178 +93,46 @@
         <%include Application.layouts.Buscar%>
 
         <com:NModalPanel ID="mpnlTerceros" CssClass="well">
-            <div class="NModal">
+            <div class="NModal well">
                 <fieldset>
 
                     <com:TActiveLabel ID="ALblAccion" font.Bold="true"/>
-                    <hr/>
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#home" data-toggle="tab"><i class="icon-info-sign"></i>Datos B&aacute;sicos</a></li>
+                            <li><a href="#profile" data-toggle="tab"><i class="icon-map-marker"></i>Localizaci&oacute;n</a></li>
+                            <li><a href="#messages" data-toggle="tab"><i class="icon-ok"></i>Status</a></li>
+                            <li><a href="#settings" data-toggle="tab"><i class="icon-comment"></i>Comentarios</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home">
 
-                    <table id="main-all-table-form" >
-                        <tr>
-                            <td>
+                                <table id="main-all-table-form" >
+                                    <tr>
+                                        <td class="td-label"><com:TLabel Text="Identificaci&oacute;n:"/>(*)</td>
+                                        <td class="td-in"><com:TActiveTextBox ID="TxtIdentificacion"/><br/>
+                                    </tr>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="td-label"><com:TLabel Text="IdTerceroPertenece :"/>(*)</td>
+                                        <td class="td-in"><com:TActiveTextBox ID="TxtIdTerceroPertenece"/><br/></td>
+                                    </tr>
+
+                                </table>
 
 
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Identificaci&oacute;n:"/></td>
-                        <td class="td-in"><com:TActiveTextBox ID="TxtIdentificacion"/>*<br/>
-                        </td>
-                        </tr>
 
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="IdTerceroPertenece :"/></td>
-                        <td class="td-in"><com:TActiveTextBox ID="TxtIdTerceroPertenece"/>*<br/>
-                        </td>
-                        </tr>
+                            </div>
+                            <div class="tab-pane" id="profile"><p>som2</p></div>
+                        </div>
+                    </div>
 
-                        </tr>
 
-                        <td class="td-label"><com:TLabel Text="Tipo de Identificacion :"/></td>
-                        <td class="td-in"><com:TActiveDropDownList ID="CboTipoIdentificacion">
-                        </com:TActiveDropDownList></td>
-                        </tr>
-
-                        <tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Digito de Verificacion :"/></td>
-                        <td class="td-in"><com:TActiveTextBox ID="TxtDigitoVerificacion"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Nombre Corto:"/></td>
-                        <td class="td-in"><com:TActiveTextBox ID="TxtNombreCorto"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Nombre Extendido:"/></td>
-                        <td class="td-in"><com:TActiveTextBox ID="TxtNombreExtendido"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Nombre:"/></td>
-                        <td class="td-in"><com:TActiveTextBox ID="TxtNombre1"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Nombre2:"/></td>
-                        <td class="td-in"><com:TActiveTextBox ID="TxtNombre2"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Apellido1:"/></td>
-                            <td class="td-in"><com:TActiveTextBox ID="TxtApellido1"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Apellido2:"/></td>
-                            <td class="td-in"><com:TActiveTextBox ID="TxtApellido2"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Direccion:"/></td>
-                            <td class="td-in"><com:TActiveTextBox ID="TxtDireccion"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Telefono:"/></td>
-                            <td class="td-in"><com:TActiveTextBox ID="TxtTelefono"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Telefono 2:"/></td>
-                            <td class="td-in"><com:TActiveTextBox ID="TxtTelefono2"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Fax:"/></td>
-                            <td class="td-in"><com:TActiveTextBox ID="TxtFax"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Email:"/></td>
-                            <td class="td-in"><com:TActiveTextBox ID="TxtEmail"/>*<br/>
-                                              <com:TEmailAddressValidator
-                                                    ValidationGroup="Group3"
-                                                    ControlToValidate="TxtEmail"
-                                                    FocusOnError="true"
-                                                    Display="Dynamic"
-                                                    Text="Invalid email address." />
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Ciudad :"/></td>
-                            <td class="td-in"><com:TActiveDropDownList ID="CboCiudades" ></com:TActiveDropDownList></td>
-                        </tr>
-
-                        <tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Contacto:"/></td>
-                            <td class="td-in"><com:TActiveTextBox ID="TxtContacto"/>*<br/>  </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="CargoContacto:"/></td>
-                            <td class="td-in"><com:TActiveTextBox ID="TxtCargoContacto"/>*<br/> </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="IdFormaPago:"/></td>
-                            <td class="td-in"><com:TActiveTextBox ID="TxtIdFormaPago"/>*<br/></td>
-                        </tr>
-
-                        <tr>
-
-                            <td class="td-label"><com:TLabel Text="Inactivo:"/></td>
-                            <td class="td-in"><com:TActiveDropDownList ID="CboInactivo">
-                                <com:TListItem Text="False" Value="0" />
-                                <com:TListItem Text="True" Value="1" />
-                            </com:TActiveDropDownList></td>
-                        </tr>
-
-                        <tr>
-
-                        <tr>
-
-                            <td class="td-label"><com:TLabel Text="SaldoCartera:"/></td>
-                        <td class="td-in"><com:TActiveTextBox ID="TxtSaldoCartera"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-label"><com:TLabel Text="Comentarios:"/></td>
-                        <td class="td-in"><com:TActiveTextBox ID="TxtComentarios" TextMode="MultiLine" Width="148px"/>*<br/>
-                        </td>
-                        </tr>
-
-                        <tr>
-                        <tr>
-
-                        <tr>
-                        <td></td>
-                    
-                       <td>
-                          <com:TActiveButton Text="Cerrar" CssClass="btn-danger" ToolTip="Cerrar Ventana" OnClick="OcultarModal"/>
-                          <com:TActiveButton Text="Guardar" CssClass="btn-success" ToolTip="Guardar" OnClick="GuardarDatos"/>
-                        </td>                       
-                        </tr>
-                        </td>
-                        </tr>
-                    </table>
-                </fieldset>
-            </div>
+            </fieldset>
+        </div>
+        <com:TActiveButton Text="Cerrar" CssClass="btn btn-danger" ToolTip="Cerrar Ventana" OnClick="OcultarModal"/>
+        <com:TActiveButton Text="Guardar" CssClass="btn btn-success" ToolTip="Guardar" OnClick="GuardarDatos"/>
         </com:NModalPanel>
 
         <!--<div class="meta">
