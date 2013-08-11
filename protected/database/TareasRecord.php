@@ -143,7 +143,7 @@ class TareasRecord extends TActiveRecord {
         }
     }
 
-    public function TareasMoroso($IdentificacionMoroso, $Cerradas = 0) {
+    public static function TareasMoroso($IdentificacionMoroso, $Cerradas = 0) {
         $Tareas = new TareasRecord();
         $Tareas = TareasRecord::finder()->findAllBy_IdTercero_AND_Cerrada($IdentificacionMoroso, $Cerradas);
 
