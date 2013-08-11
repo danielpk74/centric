@@ -30,6 +30,7 @@ class TercerosRecord extends TActiveRecord {
     public $CodCiudad;
     public $Inactivo;
     public $Comentarios;
+    public $IdCiudad;
     public static $RELATIONS = array(
         'TerceroPertfunctionenece' => array(self::BELONGS_TO, 'TercerosRecord', 'IdTerceroPertenece'),
         'Ciudades' => array(self::BELONGS_TO, 'CiudadesRecord', 'CodCiudad'),
