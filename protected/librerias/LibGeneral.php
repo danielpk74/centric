@@ -159,9 +159,14 @@ class LibGeneral extends TPage {
      * los muestra todos.
      * */
     public static function BuscarTercero($sender, $param, $Todos = '') {
-        $sql = "SELECT NombreCorto,Identificacion 
+        $sql = "SELECT NombreCorto,Identificacion
                 FROM terceros
-                WHERE IdTerceroPertenece IS NULL AND (NombreCorto LIKE '%" . $sender->Data . "%' OR Identificacion LIKE '%" . $sender->Data . "%')";
+                WHERE  (NombreCorto LIKE '%" . $sender->Data . "%' 
+                                                      OR Identificacion LIKE '%" . $sender->Data . "%'
+                                                      OR Nombre LIKE '%" . $sender->Data . "%'
+                                                      OR Nombre2 LIKE '%" . $sender->Data . "%'
+                                                      OR Apellido1 LIKE '%" . $sender->Data . "%'
+                                                      OR Apellido2 LIKE '%" . $sender->Data . "%')";
         if ($Todos == '')
             $sql = $sql . " AND Inactivo=0 ";
 

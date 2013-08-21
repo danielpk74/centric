@@ -33,9 +33,9 @@ class GestionRecord extends TActiveRecord {
      * @param type $CodTercero
      * @return objeto El registro de gestion que se le ha hecho a un moroso 
      * */
-    public static function DevGestionXMoroso($CodObligacion,$CodTercero) {
+    public static function DevGestionXMoroso($CodObligacion) {
         $Gestion = new GestionRecord();
-        $sql = "SELECT gestion.* FROM gestion WHERE CodObligacion = $CodObligacion AND CodTercero=$CodTercero ORDER BY FechaGestion DESC";
+        $sql = "SELECT gestion.* FROM gestion WHERE CodObligacion = $CodObligacion ORDER BY FechaGestion DESC";
         $Gestion = GestionRecord::finder()->With_ConceptoCobranza()->findAllBySql($sql);//By_CodObligacion_AND_CodTercero($CodObligacion,$CodTercero);
 
         return $Gestion;

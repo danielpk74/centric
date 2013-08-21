@@ -5,7 +5,7 @@
  *
  * @author daniel
  */
-class EstadoCuenta extends TPage {
+class GestionTerceros extends TPage {
 
     public function OnInit($param) {
         parent::OnInit($param);
@@ -63,57 +63,16 @@ class EstadoCuenta extends TPage {
     public function Buscar() {
         $condicion = "";
 
-
-
         if ($this->TxtIdTercero->Text != "" && is_numeric($this->TxtIdTercero->Text)) {
-            if ($this->TxtNroDocumento->Text != "" && is_numeric($this->TxtNroDocumento->Text))
-                $condicion = " AND obligaciones.NrObligacion = " . $this->TxtNroDocumento->Text;
-
-            $sql = "SELECT obligaciones.*, CONCAT(terceros.Nombre,'',terceros.Nombre2) as Nombres, CONCAT(terceros.Apellido1,'',terceros.Apellido2) as Apellidos, terceros.NombreCorto
-                     FROM terceros INNER JOIN obligaciones ON terceros.Identificacion = obligaciones.IdTercero
-                     WHERE terceros.IdTerceroPertenece = " . $this->TxtIdTercero->Text . $condicion;
-
-            $Obligaciones = new ObligacionesRecord();
-            $Obligaciones = ObligacionesRecord::finder('ObligacionesExtRecord')->findAllBySql($sql);
+            $terceros = TercerosRecord::ObtenerMorososTercero($this->TxtIdTercero->Text);
         }
 
-        if ($this->TxtIdTercero2->Text != "" && is_numeric($this->TxtIdTercero2->Text)) {
-            if ($this->TxtNroDocumento->Text != "" && is_numeric($this->TxtNroDocumento->Text))
-                $condicion = " AND obligaciones.NrObligacion = " . $this->TxtNroDocumento->Text;
-
-            $sql = "SELECT obligaciones.*, CONCAT(terceros.Nombre,'',terceros.Nombre2) as Nombres, CONCAT(terceros.Apellido1,'',terceros.Apellido2) as Apellidos, terceros.NombreCorto
-                     FROM terceros INNER JOIN obligaciones ON terceros.Identificacion = obligaciones.IdTercero
-                     WHERE terceros.Identificacion = " . $this->TxtIdTercero2->Text . $condicion;
-
-            $Obligaciones = new ObligacionesRecord();
-            $Obligaciones = ObligacionesRecord::finder('ObligacionesExtRecord')->findAllBySql($sql);
-        }
-
-
-        if ($this->TxtNroDocumento->Text != "" && is_numeric($this->TxtNroDocumento->Text)) {
-            $sql = "SELECT obligaciones.*, CONCAT(terceros.Nombre,'',terceros.Nombre2) as Nombres, CONCAT(terceros.Apellido1,'',terceros.Apellido2) as Apellidos, terceros.NombreCorto
-                     FROM terceros INNER JOIN obligaciones ON terceros.Identificacion = obligaciones.IdTercero
-                     WHERE obligaciones.NrObligacion = " . $this->TxtNroDocumento->Text;
-
-            $Obligaciones = new ObligacionesRecord();
-            $Obligaciones = ObligacionesRecord::finder('ObligacionesExtRecord')->findAllBySql($sql);    
-        }
-
-        if (Count($Obligaciones) == 0) {
-            $this->NoRegistros->Text = "No se ha hecho gestión a la obligación seleccionada.";
-        }else 
-        {
-            $this->ADGObligaciones->DataSource = $Obligaciones;
-            $this->ADGObligaciones->dataBind();
-        }
-
-
-
-//        $this->BuscarVentas();
-//        $this->BuscarPagos();
-//        $this->Totales();
+        if (Count($terceros) != 0) {
+            $this->DtGestionTerceros->DataSource = $terceros;
+            $this->DtGestionTerceros->dataBind();
+        }   
     }
-    
+
     public function OcultarModal() {
         $this->mpnlGestion->Hide();
     }
@@ -132,7 +91,7 @@ class EstadoCuenta extends TPage {
     public function CallBack() {
         LibGeneral::CallBack($this);
 
-        $this->CargarDatosTercero();
+//        $this->CargarDatosTercero();
     }
 
     /**

@@ -13,7 +13,7 @@
 
         <div id="loadingDiv" style="display:none; position: absolute;top:50%;left:50%;width:400px;z-index: 6"><img src="img/cargando.gif" />Cargando...</div>    
 
-        <table border="0" width="100%">
+        <table border="0" widtgh="100%">
 
 
             <tr>

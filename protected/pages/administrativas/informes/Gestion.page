@@ -1,4 +1,4 @@
-<%@ MasterClass="Application.layouts.MainLayout" Title="Centric"%>
+<%@ MasterClass="Application.layouts.MainLayout" Title="Estado de Cuentas - Centric"%>
 <com:TContent ID="Main">
 
     <div class="post">
@@ -20,8 +20,7 @@
                                              DataValueField="Identificacion"/>
                     <br/><br/>
                     
-                    
-                     <tr>
+                   <tr>
                    <strong> <com:TLabel Text="Desde: "/></strong><com:TDatePicker ID="DtpFhDesde" DateFormat="yyyy/MMMM/dd" InputMode="DropDownList"/> <strong><com:TLabel Text="Hasta:"/></strong> <com:TDatePicker ID="DtpFhHasta" DateFormat="yyyy/MMMM/dd" InputMode="DropDownList"/></td>
                     </tr>
                 </fieldset>
@@ -54,9 +53,7 @@
             <com:TActiveBoundColumn Id="ClmDeuda"  DataField="Saldo"    HeaderText="Deuda" HeaderStyle.Width="20px" />
             <com:TActiveBoundColumn Id="ClmParticipacion"  DataField="Participacion"    HeaderText="Participaci&oacute;n" HeaderStyle.Width="20px" />
   
-        </com:TActiveDataGrid>
-       
-        
+        </com:TActiveDataGrid> 
         
         <com:TActiveDataGrid 
             ID="DGObligaciones"
@@ -68,7 +65,7 @@
             AllowSorting="true"
             AllowPaging="true"
             PageSize="20"
-              OnPageIndexChanged="changePage"
+            OnPageIndexChanged="changePage"
             PagerStyle.CssClass="grid-pager"
             PagerStyle.Mode="Numeric">
 
@@ -86,7 +83,6 @@
             <com:TActiveBoundColumn Id="ClmSaldo" DataField="Saldo" HeaderText="Saldo" HeaderStyle.Width="20px" DataFormatString="#number_format({0},2,',','.')"/>
 
         </com:TActiveDataGrid>
-       
     </div>
     <br/><br/>
 </com:TContent>

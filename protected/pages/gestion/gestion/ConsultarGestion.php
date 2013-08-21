@@ -5,12 +5,12 @@
  *
  * @author daniel
  */
-class EstadoCuenta extends TPage {
+class ConsultarGestion extends TPage {
 
     public function OnInit($param) {
         parent::OnInit($param);
         if (!$this->IsPostBack) {
-            
+            $this->TxtIdTercero2->Focus();
         }
     }
 
@@ -65,18 +65,7 @@ class EstadoCuenta extends TPage {
 
 
 
-        if ($this->TxtIdTercero->Text != "" && is_numeric($this->TxtIdTercero->Text)) {
-            if ($this->TxtNroDocumento->Text != "" && is_numeric($this->TxtNroDocumento->Text))
-                $condicion = " AND obligaciones.NrObligacion = " . $this->TxtNroDocumento->Text;
-
-            $sql = "SELECT obligaciones.*, CONCAT(terceros.Nombre,'',terceros.Nombre2) as Nombres, CONCAT(terceros.Apellido1,'',terceros.Apellido2) as Apellidos, terceros.NombreCorto
-                     FROM terceros INNER JOIN obligaciones ON terceros.Identificacion = obligaciones.IdTercero
-                     WHERE terceros.IdTerceroPertenece = " . $this->TxtIdTercero->Text . $condicion;
-
-            $Obligaciones = new ObligacionesRecord();
-            $Obligaciones = ObligacionesRecord::finder('ObligacionesExtRecord')->findAllBySql($sql);
-        }
-
+        
         if ($this->TxtIdTercero2->Text != "" && is_numeric($this->TxtIdTercero2->Text)) {
             if ($this->TxtNroDocumento->Text != "" && is_numeric($this->TxtNroDocumento->Text))
                 $condicion = " AND obligaciones.NrObligacion = " . $this->TxtNroDocumento->Text;
@@ -172,102 +161,9 @@ class EstadoCuenta extends TPage {
      */
     public function OnItemDataBound($sender, $param) {
         if ($param->Item->ItemType == "Item" || $param->Item->ItemType == "AlternatingItem") {
-            $Dias = LibGeneral::restaFechas(LibGeneral::ForFecha($param->Item->DataItem->FhVencimientoObligacion), date('Y/m/d'));
-            $DiasFacturado = LibGeneral::restaFechas(LibGeneral::ForFecha($param->Item->DataItem->FhObligacion), date('Y/m/d'));
-
-            if ($param->Item->DataItem->Saldo < 1 && $param->Item->DataItem->Saldo > -1)
-                $param->Item->Visible = false;
-
-            $param->Item->ClmDiasFacturado->LblDiasFacturado->Text = $DiasFacturado;
-
-            $param->Item->ClmDiasVencidos->LblVencidos->Text = $Dias;
-
-
-            if ($Dias >= 0 && $Dias <= 30) {
-                $param->Item->Clm30->Lbl30->Text = number_format($param->Item->Clm30->Lbl30->Text + $param->Item->DataItem->Saldo, '2', ',', '.');
-                $dblTotal30 = $this->getViewState('Total30') + $param->Item->DataItem->Saldo;
-                $this->setViewState('Total30', $dblTotal30);
-
-                if ($param->Item->DataItem->Saldo < 0)
-                    $param->Item->Clm30->Lbl30->ForeColor = "Red";
-            }
-
-            elseif ($Dias >= 31 && $Dias <= 60) {
-                $param->Item->Clm60->Lbl60->Text = number_format($param->Item->Clm60->Lbl60->Text + $param->Item->DataItem->Saldo, '2', ',', '.');
-                $dblTotal60 = $this->getViewState('Total60') + $param->Item->DataItem->Saldo;
-                $this->setViewState('Total60', $dblTotal60);
-
-                if ($param->Item->DataItem->Saldo < 0)
-                    $param->Item->Clm60->Lbl60->ForeColor = "Red";
-            }
-
-            elseif ($Dias >= 61 && $Dias <= 90) {
-                $param->Item->Clm90->Lbl90->Text = number_format($param->Item->Clm90->Lbl90->Text + $param->Item->DataItem->Saldo, '2', ',', '.');
-                $dblTotal90 = $this->getViewState('Total90') + $param->Item->DataItem->Saldo;
-                $this->setViewState('Total90', $dblTotal90);
-
-                if ($param->Item->DataItem->Saldo < 0)
-                    $param->Item->Clm90->Lbl90->ForeColor = "Red";
-            }
-
-            elseif ($Dias >= 91 && $Dias <= 120) {
-                $param->Item->Clm120->Lbl120->Text = number_format($param->Item->Clm120->Lbl120->Text + $param->Item->DataItem->Saldo, '2', ',', '.');
-                $dblTotal120 = $this->getViewState('Total120') + $param->Item->DataItem->Saldo;
-                $this->setViewState('Total120', $dblTotal120);
-
-                if ($param->Item->DataItem->Saldo < 0)
-                    $param->Item->Clm120->Lbl120->ForeColor = "Red";
-            }
-
-            elseif ($Dias >= 121 && $Dias <= 150) {
-                $param->Item->Clm150->Lbl150->Text = number_format($param->Item->Clm150->Lbl150->Text + $param->Item->DataItem->Saldo, '2', ',', '.');
-                $dblTotal150 = $this->getViewState('Total150') + $param->Item->DataItem->Saldo;
-                $this->setViewState('Total150', $dblTotal150);
-
-                if ($param->Item->DataItem->Saldo < 0)
-                    $param->Item->Clm150->Lbl150->ForeColor = "Red";
-            }
-
-            elseif ($Dias >= 151 && $Dias <= 180) {
-                $param->Item->Clm180->Lbl180->Text = number_format($param->Item->Clm180->Lbl180->Text + $param->Item->DataItem->Saldo, '2', ',', '.');
-                $dblTotal180 = $this->getViewState('Total180') + $param->Item->DataItem->Saldo;
-                $this->setViewState('Total180', $dblTotal180);
-
-                if ($param->Item->DataItem->Saldo < 0)
-                    $param->Item->Clm180->Lbl180->ForeColor = "Red";
-            }
-            elseif ($Dias > 180) {
-                $param->Item->ClmMayor180->LblMayor180->Text = number_format($param->Item->ClmMayor180->LblMayor180->Text + $param->Item->DataItem->Saldo, '2', ',', '.');
-                $dblTotalMayor180 = $this->getViewState('TotalMayor180') + $param->Item->DataItem->Saldo;
-                $this->setViewState('TotalMayor180', $dblTotalMayor180);
-
-                if ($param->Item->DataItem->Saldo < 0)
-                    $param->Item->ClmMayor180->LblMayor180->ForeColor = "Red";
-            }
-            else {
-                $param->Item->ClmPorVencer->LblPorVencer->Text = number_format($param->Item->ClmPorVencer->LblPorVencer->Text + $param->Item->DataItem->Saldo, '2', ',', '.');
-                $dblTotalPorVencer = $this->getViewState('TotalPorVencer') + $param->Item->DataItem->Saldo;
-                $this->setViewState('TotalPorVencer', $dblTotalPorVencer);
-
-                if ($param->Item->DataItem->Saldo < 0)
-                    $param->Item->ClmPorVencer->LblPorVencer->ForeColor = "Red";
-            }
-            $dblTtal = $this->getViewState('TotalFacturas') + $param->Item->DataItem->Saldo;
-            $this->setViewState('TotalFacturas', $dblTtal);
-        }
-
-        // Generador del pie del datagrid.
-        if ($param->Item->ItemType === 'Footer') {
-            $param->Item->ClmPorVencer->LblTotalPorVencer->Text = number_format($this->getViewState('TotalPorVencer'), '2', ',', '.');
-            $param->Item->Clm30->LblTotal30->Text = number_format($this->getViewState('Total30'), '2', ',', '.');
-            $param->Item->Clm60->LblTotal60->Text = number_format($this->getViewState('Total60'), '2', ',', '.');
-            $param->Item->Clm90->LblTotal90->Text = number_format($this->getViewState('Total90'), '2', ',', '.');
-            $param->Item->Clm120->LblTotal120->Text = number_format($this->getViewState('Total120'), '2', ',', '.');
-            $param->Item->Clm150->LblTotal150->Text = number_format($this->getViewState('Total150'), '2', ',', '.');
-            $param->Item->Clm180->LblTotal180->Text = number_format($this->getViewState('Total180'), '2', ',', '.');
-            $param->Item->ClmMayor180->LblTotalMayor180->Text = number_format($this->getViewState('TotalMayor180'), '2', ',', '.');
-
-//            $this->LblTotalFacturas->Text = number_format($this->getViewState('TotalFacturas'), '2', ',', '.');
+            $Gestion = GestionRecord::DevGestionXMoroso($param->Item->DataItem->CodObligacion);
+            $param->Item->ADGGestion->DataSource = $Gestion;
+            $param->Item->ADGGestion->dataBind();
         }
     }
 

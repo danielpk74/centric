@@ -227,14 +227,13 @@ class VerInformacion extends TPage {
         $Tarea = new TareasRecord();
         $Tarea = TareasRecord::finder()->FindByPk($CodigoTarea);
 
-        $Gestion = GestionRecord::DevGestionXMoroso($Tarea->CodObligacion, $this->LblIdTercero->Text);
-
         $Obligacion = new ObligacionesRecord();
         $Obligacion = ObligacionesRecord::finder()->findByPk($Tarea->CodObligacion);
 
         $this->LblFechaUltimaGestion->Text = "Ultima Gestión: " . $Obligacion->FechaUltimaGestion;
         $this->LblCodObligacion->Text = $Obligacion->NrObligacion;
-
+        
+        $Gestion = GestionRecord::DevGestionXMoroso($Tarea->CodObligacion);
         $this->ADGGestion->DataSource = $Gestion;
         $this->ADGGestion->dataBind();
     }

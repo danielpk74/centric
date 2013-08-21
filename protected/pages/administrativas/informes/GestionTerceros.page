@@ -1,0 +1,176 @@
+<%@ MasterClass="Application.layouts.MainLayout" Title="Consulta de Gestión - Centric"%>
+<com:TContent ID="Main">
+    
+    <script>
+        function cargarGestionObligaciones(codigoTercero)
+        {
+             $.ajax({'type': 'GET', 'url': '', 'data': {
+                    url: urls,
+                    detalles: sessionStorage.detallesSeleccionados,
+                }, 'success': function(data) {
+                    if (data != 'false')
+                        window.open(data);
+                    else {
+                        $('#informacion').addClass('alert alert-block alert-error fade in');
+                        $('#tituloMensaje').html('ADVERTENCIA');
+                        $('#informacionMensaje').html('El directorio seleccionado no contienen ningún subdirectorio ni archivo.');
+                        $('#informacion').fadeIn(1000);
+                        $('#informacion').fadeOut(12000);
+                    }
+                }, 'cache': false});
+        }
+    </script>
+
+    <div id="main-all">
+        <br>
+        <h3>Consulta de Gestión por Tecero</h3><hr/>
+
+        <div id="loadingDiv" style="display:none; position: absolute;top:50%;left:50%;width:100px;z-index: 6"><img src="img/cargando.gif" />Cargando...</div>    
+
+        <div class="well">
+            <table id="main-all-table-form">
+                <tr>
+                    <td>
+                <tr>                        
+                    <td>
+                        <div class="input-prepend">
+                            <span class="add-on-zikmont">Cliente</span>
+                        </div>
+                    </td>
+                    <td>
+                <com:TAutoComplete
+                    ID="TxtIdTercero"
+                    OnTextChanged="BuscarTercero"
+                    AutoPostBack="false"
+                    Frequency="0.1"
+                    Columns="25"
+                    EnableClientScript="true"
+                    CausesValidation="false"
+                    OnSuggest="BuscarTercero"
+                    onSuggestionSelected="CallBack"
+                    ResultPanel.CssClass="autocomplete">
+                </com:TAutoComplete>
+                </td>
+
+                <td>
+                <com:TAutoComplete ID="TxtNombre" CssClass="span5" BorderWidth="0" Enabled="false"/>
+                </td>
+
+                </tr>
+                
+                 <tr>                        
+                    <td>
+                        <div class="input-prepend">
+                            <span class="add-on-zikmont">Moroso</span>
+                        </div>
+                    </td>
+                    <td>
+                <com:TAutoComplete
+                    ID="TxtIdTercero2"
+                    OnTextChanged="BuscarTercero"
+                    AutoPostBack="false"
+                    Frequency="0.1"
+                    Columns="25"
+                    EnableClientScript="true"
+                    CausesValidation="false"
+                    OnSuggest="BuscarTercero"
+                    onSuggestionSelected="CallBack2"
+                    ResultPanel.CssClass="autocomplete">
+                </com:TAutoComplete>
+                </td>
+
+                <td>
+                <com:TAutoComplete ID="TxtNombre2" CssClass="span5" BorderWidth="0" Enabled="false"/>
+                </td>
+
+                </tr>
+
+                </td>
+                </tr>
+
+                <tr>
+                    <td colspan="1">
+                        <div class="input-prepend">
+                            <span class="add-on-zikmont">Fh Gestión</span>
+                        </div>
+                    </td>
+                    <td>
+                        <strong> <com:TLabel Text="Desde: "/></strong><com:TDatePicker ID="DtpFhDesde" DateFormat="yyyy/MM/dd" InputMode="TextBox"/> 
+                        
+                    </td>
+                    <td>
+                        
+                        <strong><com:TLabel Text="Hasta:"/></strong> <com:TDatePicker ID="DtpFhHasta" DateFormat="yyyy/MM/dd" InputMode="TextBox"/>
+                    </td>
+                </tr>
+
+                </tr>
+
+                <tr>
+                    <td>
+                <com:TButton Text="Buscar" OnClick="Buscar"/>
+                </td>
+                </tr>
+            </table>
+            <br/>
+        </div>
+
+        <com:TImageButton SkinID="Imprimir" Width="32" OnClick="Imprimir" Visible="false"/>
+        <com:TImageButton SkinID="ExportarPDF" Width="32" OnClick="Buscar" Visible="false"/>
+        <com:TImageButton SkinID="ExportarExcel" Width="32" OnClick="Buscar" Visible="false"/>
+
+        <hr>
+        
+        <div id="detalleGestion"></div>
+        
+        
+        <com:TActiveDataGrid 
+            ID="DtGestionTerceros"
+            AutoGenerateColumns="false"
+            CssClass="table table-striped table-bordered table-condensed"
+            HeaderStyle.CssClass="header-fondo"
+            ItemStyle.CssClass="item-style"
+            AlternatingItemStyle.CssClass="alternating-style"
+            AllowSorting="true"
+            AllowPaging="true"
+            PageSize="40"
+            OnPageIndexChanged="changePage"
+            PagerStyle.CssClass="grid-pager"
+            PagerStyle.Mode="Numeric">
+
+            <com:TActiveBoundColumn Id="ClmEmpresa" DataField="NombreCorto" HeaderText="Empresa" HeaderStyle.Width="20px" Visible="true"/>
+            
+            <com:TTemplateColumn HeaderText="Ver Detalles" HeaderStyle.Width="60px" ItemStyle.HorizontalAlign="Center"  >
+                    <prop:ItemTemplate>                        
+                        <com href="#myModal" role="button" class="btn btn-mini btn-success" data-toggle="modal" style="float: right">Ver Detalle de Gestión</a><br><br>
+                    </prop:ItemTemplate>
+                </com:TTemplateColumn>
+  
+        </com:TActiveDataGrid>
+        
+        <div class="modal hide" id="myModal">
+            
+        </div>
+        
+        
+        <com:TRepeater ID="DtGestionTerceross" EnableViewState="false" OnItemCommand="Eliminar">
+                <prop:HeaderTemplate>
+                    Evaluación de Gestión X Cliente
+                </prop:HeaderTemplate>
+
+                <prop:ItemTemplate>
+                    <h6><%#$this->DataItem->NombreCorto %> <com:TButton Text="Eliminar" Visible="false" CommandName="Eliminar"/></h6>
+                    <div class="div-form">
+                        
+                    </div>                    
+                </prop:ItemTemplate>
+
+                <prop:AlternatingItemTemplate>
+                     <h6><%#$this->DataItem->NombreCorto %> <com:TButton Text="Eliminar" Visible="false" CommandName="Eliminar"/></h6>
+                    <div class="div-form">
+                    </div>                    
+                </prop:AlternatingItemTemplate>
+            
+            </com:TRepeater>
+            <br/><br/>
+</com:TContent>

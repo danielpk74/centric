@@ -70,6 +70,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><com:THyperLink NavigateUrl="?page=gestion.tareas.VerTareas" Text="Ver Tareas"/></li>
+                                <li><com:THyperLink NavigateUrl="?page=gestion.gestion.ConsultarGestion" Text="Consultar Gestion"/></li>
                                 <li><com:THyperLink NavigateUrl="?page=gestion.tareas.novedades" Text="Gestion" Visible="false"/></li>
                             </ul>
                         </li>
@@ -80,7 +81,10 @@
                                <li><com:THyperLink NavigateUrl="?page=administrativas.informes.EstadoCuenta" Text="Estados de Cuenta" /></li>
                                <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Ingreso" Text="Ingresos" Visible="false"/></li>
 <!--                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Cartera" Text="Cartera" /></li>-->
-                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Gestion" Text="Gestion" /></li>
+                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.GestionTerceros" Text="Gestion por Terceros"/></li>
+                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Gestion" Text="Gestion por Usuario"/></li>
+                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Gestion" Text="Gestion Detalles"/></li>
+                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Gestion" Text="Pagos" Visible="false"/></li>
                                
                             </ul>
                         </li>
@@ -159,19 +163,7 @@
         <!-- Le javascript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="assets/js/jquery.js"></script>
-        <script src="assets/js/bootstrap-transition.js"></script>
-        <script src="assets/js/bootstrap-alert.js"></script>
-        <script src="assets/js/bootstrap-modal.js"></script>
-        <script src="assets/js/bootstrap-dropdown.js"></script>
-        <script src="assets/js/bootstrap-scrollspy.js"></script>
-        <script src="assets/js/bootstrap-tab.js"></script>
-        <script src="assets/js/bootstrap-tooltip.js"></script>
-        <script src="assets/js/bootstrap-popover.js"></script>
-        <script src="assets/js/bootstrap-button.js"></script>
-        <script src="assets/js/bootstrap-collapse.js"></script>
-        <script src="assets/js/bootstrap-carousel.js"></script>
-        <script src="assets/js/bootstrap-typeahead.js"></script>
+       
      </com:TForm>
     </body>
 </html>

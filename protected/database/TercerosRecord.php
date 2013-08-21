@@ -85,10 +85,30 @@ class TercerosRecord extends TActiveRecord {
         return $Tercero;
     }
 
+    /**
+     * Devuelve un objeto del tipo terceros con todos los morosos
+     * @return objeto TercerosRecord
+     */
     public static function ObtenerMorosos() {
         $sql = "SELECT Identificacion, NombreCorto, Contacto, Telefono, Fax, Email, Direccion,CodCiudad
                 FROM `terceros` 
                 WHERE `IdTerceroPertenece` IS NOT NULL";
+
+        $Tercero = new TercerosRecord();
+        $Tercero = TercerosRecord::finder()->With_Ciudades()->findAllBySql($sql);
+
+        return $Tercero;
+    }
+    
+    /**
+     * Devuelve un objeto del tipo terceros con todos los morosos de un tercero especificado por parametro
+     * @return objeto TercerosRecord
+     */
+    public static function ObtenerMorososTercero($IdTercero) {
+        $sql = "SELECT Identificacion, NombreCorto, Contacto, Telefono, Fax, Email, Direccion,CodCiudad
+                FROM `terceros` 
+                WHERE `IdTerceroPertenece`=$IdTercero
+                ORDER BY NombreCorto ";
 
         $Tercero = new TercerosRecord();
         $Tercero = TercerosRecord::finder()->With_Ciudades()->findAllBySql($sql);
