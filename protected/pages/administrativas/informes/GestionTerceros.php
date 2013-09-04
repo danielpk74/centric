@@ -62,6 +62,7 @@ class GestionTerceros extends TPage {
      */
     public function Buscar() {
         $condicion = "";
+        $terceros="";
 
         if ($this->TxtIdTercero->Text != "" && is_numeric($this->TxtIdTercero->Text)) {
             $terceros = TercerosRecord::ObtenerMorososTercero($this->TxtIdTercero->Text);
