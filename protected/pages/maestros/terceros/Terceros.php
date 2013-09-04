@@ -28,7 +28,7 @@ class Terceros extends TPage {
         $this->ADGTerceros->DataSource = $Terceros;
         $this->ADGTerceros->dataBind();
     }
-    
+
     private function LlenarGridMorosos() {
         $Terceros = new TercerosRecord();
         $Terceros = TercerosRecord::ObtenerMorosos();
@@ -124,47 +124,49 @@ class Terceros extends TPage {
         if ($this->getViewState('Accion') == 2) {
             $Tercero = TercerosRecord::ObtenerTercero('1', $this->getViewState('Tercero'));
             $Tercero->Identificacion = $this->getViewState('Tercero');
-            $this->mpnlTerceros->Hide();
         }// si se esta ingresando una nueva
-        else{ 
+        else {
             $Tercero->Identificacion = $this->TxtIdentificacion->Text;
-            }
-        
-            $Tercero->FhCreacion = date('Y-m-d H:i:s');
+        }
+
+        $Tercero->FhCreacion = date('Y-m-d H:i:s');
 //        $this->TxtIdentificacion->Text = $Tercero->Identificacion;
+        if ($this->TxtIdTerceroPertenece->Text = '') {
+            $Tercero->IdTerceroPertenece = null;
+        } else {
             $Tercero->IdTerceroPertenece = $this->TxtIdTerceroPertenece->Text;
-            $Tercero->TpIdentificacion = $this->CboTipoIdentificacion->SelectedValue;
-            $Tercero->DigitoVerificacion = $this->TxtDigitoVerificacion->Text;
-            $Tercero->NombreCorto = $this->TxtNombreCorto->Text;
-            $Tercero->NombreExtendido = $this->TxtNombreExtendido->Text;
-            $Tercero->Nombre = $this->TxtNombre1->Text;
-            $Tercero->Nombre2 = $this->TxtNombre2->Text;
-            $Tercero->Apellido1 = $this->TxtApellido1->Text;
-            $Tercero->Apellido2 = $this->TxtApellido2->Text;
-            $Tercero->Direccion = $this->TxtDireccion->Text;
-            $Tercero->Telefono = $this->TxtTelefono->Text;
-            $Tercero->Telefono2 = $this->TxtTelefono2->Text;
-            $Tercero->Fax = $this->TxtFax->Text;
-            $Tercero->Email = $this->TxtEmail->Text;
-            $Tercero->IdCiudad = $this->CboCiudades->SelectedValue;
-            $Tercero->Contacto = $this->TxtContacto->Text;
-            $Tercero->CargoContacto = $this->TxtCargoContacto->Text;
-            $Tercero->IdFormaPago = $this->TxtIdFormaPago->Text;
-            $Tercero->Inactivo = $this->CboInactivo->SelectedValue;
-            $Tercero->Comentarios = $this->TxtComentarios->Text;
+        }
+        $Tercero->TpIdentificacion = $this->CboTipoIdentificacion->SelectedValue;
+        $Tercero->DigitoVerificacion = $this->TxtDigitoVerificacion->Text;
+        $Tercero->NombreCorto = $this->TxtNombreCorto->Text;
+        $Tercero->NombreExtendido = $this->TxtNombreExtendido->Text;
+        $Tercero->Nombre = $this->TxtNombre1->Text;
+        $Tercero->Nombre2 = $this->TxtNombre2->Text;
+        $Tercero->Apellido1 = $this->TxtApellido1->Text;
+        $Tercero->Apellido2 = $this->TxtApellido2->Text;
+        $Tercero->Direccion = $this->TxtDireccion->Text;
+        $Tercero->Telefono = $this->TxtTelefono->Text;
+        $Tercero->Telefono2 = $this->TxtTelefono2->Text;
+        $Tercero->Fax = $this->TxtFax->Text;
+        $Tercero->Email = $this->TxtEmail->Text;
+        $Tercero->IdCiudad = $this->CboCiudades->SelectedValue;
+        $Tercero->Contacto = $this->TxtContacto->Text;
+        $Tercero->CargoContacto = $this->TxtCargoContacto->Text;
+        $Tercero->IdFormaPago = $this->TxtIdFormaPago->Text;
+        $Tercero->Inactivo = $this->CboInactivo->SelectedValue;
+        $Tercero->Comentarios = $this->TxtComentarios->Text;
 //            $Tercero->SaldoCartera = $this->TxtSaldoCartera->Text;
+        $this->mpnlTerceros->Hide();
+
+        try {
+            $Tercero->save();
             $this->mpnlTerceros->Hide();
-
-            try {
-                $Tercero->save();
-
-                LibGeneral::Completado($this->Page, 'Se han guardado los datos de <b>' . $this->TxtNombreCorto->Text . '</b>');
-                $this->LlenarGrid();
-            } catch (Exception $e) {
-                $Transaccion->rollBack();
-                LibGeneral::Error($this->Page, 'Se ha presentado un error durante la operacion, intentelo nuevamente.' . $e->getMessage());
-            }
-        
+            LibGeneral::Completado($this->Page, 'Se han guardado los datos de <b>' . $this->TxtNombreCorto->Text . '</b>');
+            $this->LlenarGrid();
+        } catch (Exception $e) {
+            $Transaccion->rollBack();
+            LibGeneral::Error($this->Page, 'Se ha presentado un error durante la operacion, intentelo nuevamente.' . $e->getMessage());
+        }
     }
 
     public function InactivarTercero($sender, $param) {
