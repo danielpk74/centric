@@ -131,8 +131,8 @@ class Terceros extends TPage {
 
         $Tercero->FhCreacion = date('Y-m-d H:i:s');
 //        $this->TxtIdentificacion->Text = $Tercero->Identificacion;
-        if ($this->TxtIdTerceroPertenece->Text = '') {
-            $Tercero->IdTerceroPertenece = null;
+        if ($this->TxtIdTerceroPertenece->Text == '') {
+            $Tercero->IdTerceroPertenece = NULL;
         } else {
             $Tercero->IdTerceroPertenece = $this->TxtIdTerceroPertenece->Text;
         }
@@ -149,7 +149,7 @@ class Terceros extends TPage {
         $Tercero->Telefono2 = $this->TxtTelefono2->Text;
         $Tercero->Fax = $this->TxtFax->Text;
         $Tercero->Email = $this->TxtEmail->Text;
-        $Tercero->IdCiudad = $this->CboCiudades->SelectedValue;
+        $Tercero->CodCiudad = $this->CboCiudades->SelectedValue;
         $Tercero->Contacto = $this->TxtContacto->Text;
         $Tercero->CargoContacto = $this->TxtCargoContacto->Text;
         $Tercero->IdFormaPago = $this->TxtIdFormaPago->Text;
@@ -164,7 +164,6 @@ class Terceros extends TPage {
             LibGeneral::Completado($this->Page, 'Se han guardado los datos de <b>' . $this->TxtNombreCorto->Text . '</b>');
             $this->LlenarGrid();
         } catch (Exception $e) {
-            $Transaccion->rollBack();
             LibGeneral::Error($this->Page, 'Se ha presentado un error durante la operacion, intentelo nuevamente.' . $e->getMessage());
         }
     }
