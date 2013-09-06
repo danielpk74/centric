@@ -99,15 +99,22 @@
                     <com:TActiveLabel ID="ALblAccion" font.Bold="true"/>
                     <div class="tabbable">
                         <ul class="nav nav-tabs">
-                            <li><a href="#basico" data-toggle="tab"><i class="icon-info-sign"></i>Datos B&aacute;sicos</a></li>
-                            <li class="active"><a href="#contacto" data-toggle="tab"><i class="icon-map-marker"></i>Localizaci&oacute;n</a></li>
+                            <li class="active"><a href="#basico" data-toggle="tab"><i class="icon-info-sign"></i>Datos B&aacute;sicos</a></li>
+                            <li><a href="#contacto" data-toggle="tab"><i class="icon-map-marker"></i>Localizaci&oacute;n</a></li>
                             <li><a href="#status" data-toggle="tab"><i class="icon-ok"></i>Status</a></li>
                             <li><a href="#comentarios" data-toggle="tab"><i class="icon-comment"></i>Comentarios</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane" id="basico">
+                            <div class="tab-pane  active" id="basico">
 
                                 <table id="main-all-table-form" >
+                                    
+                                    <tr>
+                                        <td class="td-label"><com:TLabel Text="Tipo de Identificacion :"/></td>
+                                        <td class="td-in"><com:TActiveDropDownList ID="CboTipoIdentificacion">
+                                            </com:TActiveDropDownList></td>
+                                    </tr>
+                                    
                                     <tr>
                                         <td class="td-label"><com:TLabel Text="Identificaci&oacute;n:"/>(*)</td>
                                         <td class="td-in"><com:TActiveTextBox ID="TxtIdentificacion"/><br/>
@@ -117,12 +124,6 @@
                                     <tr>
                                         <td class="td-label"><com:TLabel Text="IdTerceroPertenece :"/>(*)</td>
                                         <td class="td-in"><com:TActiveTextBox ID="TxtIdTerceroPertenece"/><br/></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="td-label"><com:TLabel Text="Tipo de Identificacion :"/></td>
-                                        <td class="td-in"><com:TActiveDropDownList ID="CboTipoIdentificacion">
-                                            </com:TActiveDropDownList></td>
                                     </tr>
 
                                     <tr>
@@ -157,7 +158,7 @@
                                 </table>
 
                             </div>
-                            <div class="tab-pane active" id="contacto">
+                            <div class="tab-pane" id="contacto">
                                 
                                 <table id="main-all-table-form" >
                                     <tr>
