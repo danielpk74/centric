@@ -36,7 +36,7 @@
                 
                 <com:TBoundColumn Id="ClmValorInicial" DataField="ValorFactura" HeaderText="Vr. Factura" HeaderStyle.Width="20px" DataFormatString="#number_format({0},2,',','.')" />
                 <com:TBoundColumn Id="ClmValorReporte" DataField="ValorReporte" HeaderText="Vr. Reporte" HeaderStyle.Width="20px" DataFormatString="#number_format({0},2,',','.')" />
-                <com:TBoundColumn Id="ClmValorCuota" DataField="ValorCuota" HeaderText="Vr. Cuota" HeaderStyle.Width="20px" DataFormatString="#number_format({0},2,',','.')"/>
+                <com:TBoundColumn Id="ClmValorCuota"  DataField="ValorCuota" HeaderText="Vr. Cuota" HeaderStyle.Width="20px" DataFormatString="#number_format({0},2,',','.')" Visible="False"/>
 
                 <com:TBoundColumn Id="ClmIdTercero" DataField="IdTercero" HeaderText="Identificacion" HeaderStyle.Width="20px" />
                 <com:TBoundColumn Id="ClmNmTercero" DataField="NombreCorto" HeaderText="Moroso" HeaderStyle.Width="20px" />
@@ -45,13 +45,13 @@
                 <com:TBoundColumn Id="ClmCodObligacion" DataField="CodObligacion" HeaderText="Cod" HeaderStyle.Width="20px" Visible="false"/>
                 <com:TBoundColumn Id="ClmFhObligacion" DataField="FhObligacion" HeaderText="F. Obligacion" HeaderStyle.Width="20px" />
                 <com:TBoundColumn Id="ClmFhReporte" DataField="FhReporte"  HeaderText="Reportado" HeaderStyle.Width="20px" />
-                <com:TBoundColumn Id="ClmFhUltimoPago" DataField="FhUltimoPago" HeaderText="F. Ult Pago" HeaderStyle.Width="20px" />
+                <com:TBoundColumn Id="ClmFhUltimoPago" DataField="FhUltimoPago" HeaderText="F. Ult Pago" HeaderStyle.Width="20px" Visible="False"/>
                 <com:TBoundColumn Id="ClmIdTerceroPertenece" DataField="Cliente" HeaderText="Pertenece" HeaderStyle.Width="20px" />
 
                 <com:TBoundColumn Id="ClmSaldo" DataField="Saldo" HeaderText="Saldo" HeaderStyle.Width="20px" DataFormatString="#number_format({0},2,',','.')"/>
                 <com:TBoundColumn Id="ClmIntereses" DataField="Intereses" HeaderText="Intereses" HeaderStyle.Width="20px" Visible="false"/>
                 
-                <com:TBoundColumn Id="ClmFhUltimaGestion" DataField="FechaUltimaGestion" HeaderText="Ultima Gestión" HeaderStyle.Width="20px"/>
+                <com:TBoundColumn Id="ClmFhUltimaGestion" DataField="FechaUltimaGestion" HeaderText="Ultima Gestión" HeaderStyle.Width="20px" Visible="False"/>
 
                 <com:TTemplateColumn ID="ClmVer" HeaderText="Ver" HeaderStyle.Width="10px" ItemStyle.HorizontalAlign="Center">
                     <prop:ItemTemplate>
