@@ -171,11 +171,11 @@
                 </prop:ItemTemplate>
             </com:TTemplateColumn>
 
-            <com:TActiveBoundColumn Id="ClmFhObligacion" DataField="FhObligacion" HeaderText="Fecha Factura" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmFhObligacion" DataField="FhObligacion" HeaderText="Fecha Factura" HeaderStyle.Width="20px"  Visible="false"/>
             <com:TActiveBoundColumn Id="ClmNombreCorto" DataField="NombreCorto" HeaderText="Razon Social" HeaderStyle.Width="20px"/>
             <com:TActiveBoundColumn Id="ClmIdTercero" DataField="IdTercero" HeaderText="NIT" HeaderStyle.Width="20px"/>
 
-            <com:TActiveBoundColumn Id="ClmFhVencimiento" DataField="FhVencimientoObligacion" HeaderText="Fecha Vencimiento" HeaderStyle.Width="20px"/>
+            <com:TActiveBoundColumn Id="ClmFhVencimiento" DataField="FhVencimientoObligacion" HeaderText="Vencimiento" HeaderStyle.Width="20px"/>
 
             <com:TTemplateColumn  ID="ClmDiasVencidos" HeaderText="Dias de Vencido" ItemStyle.HorizontalAlign="Right" HeaderStyle.Width="20px" >
                 <prop:ItemTemplate>
@@ -193,7 +193,7 @@
             <com:TActiveBoundColumn Id="ClmApellidos" DataField="Apellidos" HeaderText="Apellidos" HeaderStyle.Width="20px" Visible="false"/>
             <com:TActiveBoundColumn Id="ClmBarrio" DataField="Barrio" HeaderText="Barrio" HeaderStyle.Width="20px" Visible="false"/>          
             <com:TActiveBoundColumn Id="ClmValorInicial" DataField="ValorFactura"  DataFormatString="#number_format({0},2,',','.')" HeaderText="Vr. Factura" HeaderStyle.Width="20px" />
-            <com:TActiveBoundColumn Id="ClmValorReporte" DataField="ValorReporte"  DataFormatString="#number_format({0},2,',','.')" HeaderText="Vr. Reporte" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmValorReporte" DataField="ValorReporte"  DataFormatString="#number_format({0},2,',','.')" HeaderText="Vr. Reporte" HeaderStyle.Width="20px" Visible="false"/>
 
             <com:TActiveBoundColumn Id="ClmHonorarios" DataField="Honorarios" HeaderText="Honorarios" HeaderStyle.Width="20px" Visible="false"/>
             <com:TActiveBoundColumn Id="ClmIntereses" DataField="Intereses" HeaderText="Intereses" HeaderStyle.Width="20px" Visible="false"/>
@@ -202,9 +202,9 @@
             <com:TActiveBoundColumn Id="ClmFhReporte" DataField="FhReporte"  HeaderText="Reportado" HeaderStyle.Width="20px" />
             <com:TActiveBoundColumn Id="ClmFhUltimoPago" DataField="FhUltimoPago" HeaderText="F. Ult Pago" HeaderStyle.Width="20px" Visible="false"/>
             <com:TActiveBoundColumn Id="ClmTpObligacion" DataField="TpObligacion" HeaderText="Tp Obligacion" HeaderStyle.Width="20px" Visible="false"/>
-            <com:TActiveBoundColumn Id="ClmValorCuota" DataField="ValorCuota" HeaderText="Vr. Cuota" HeaderStyle.Width="20px" />
+            <com:TActiveBoundColumn Id="ClmValorCuota" DataField="ValorCuota" HeaderText="Vr. Cuota" HeaderStyle.Width="20px" Visible="false"/>
             <com:TActiveBoundColumn Id="ClmEstado" DataField="Estado" HeaderText="Estado" HeaderStyle.Width="20px" Visible="false"/>
-            <com:TTemplateColumn  ID="ClmPorVencer" HeaderText="Por Vencer(Total)" ItemStyle.HorizontalAlign="Right" FooterStyle.HorizontalAlign="Right" >
+            <com:TTemplateColumn  ID="ClmPorVencer" HeaderText="Por Vencer(Total)" ItemStyle.HorizontalAlign="Right" FooterStyle.HorizontalAlign="Right"  Visible="false">
                 <prop:ItemTemplate>
                     <com:TActiveLabel ID="LblPorVencer"/>
                 </prop:ItemTemplate>
