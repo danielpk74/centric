@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-   
     <com:THead>
         <meta charset="utf-8">
         <title>Centric - Cuentas al Dia</title>
@@ -9,7 +8,6 @@
         <meta name="author" content="">
 
         <!-- Le styles -->
-        
         <style type="text/css">
             body {
                 background-color: #f9f9f9;
@@ -22,7 +20,6 @@
         <link href="themes/Default/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
         <script src="themes/Default/bootstrap/js/jquery-1.7.2.js"></script>
         <script src="themes/Default/bootstrap/js/bootstrap.js"></script>
-
     </com:THead>
 
     <body data-spy="scroll" data-target=".subnav" data-offset="50">
@@ -70,7 +67,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><com:THyperLink NavigateUrl="?page=gestion.tareas.VerTareas" Text="Ver Tareas"/></li>
-                                <li><com:THyperLink NavigateUrl="?page=gestion.gestion.ConsultarGestion" Text="Consultar Gestion"/></li>
+                                
                                 <li><com:THyperLink NavigateUrl="?page=gestion.tareas.novedades" Text="Gestion" Visible="false"/></li>
                             </ul>
                         </li>
@@ -79,11 +76,12 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="display:<%=$this->OpcionMenu()%>">Informes <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                <li><com:THyperLink NavigateUrl="?page=administrativas.informes.EstadoCuenta" Text="Estados de Cuenta" /></li>
+                               <li><com:THyperLink NavigateUrl="?page=gestion.gestion.ConsultarGestion" Text="Consultar Gestion"/></li>
                                <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Ingreso" Text="Ingresos" Visible="false"/></li>
 <!--                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Cartera" Text="Cartera" /></li>-->
-                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.GestionTerceros" Text="Gestion por Terceros"/></li>
-                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Gestion" Text="Gestion por Usuario"/></li>
-                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Gestion" Text="Gestion Detalles"/></li>
+                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.GestionTerceros" Text="Gestion por Terceros" Visible="false"/></li>
+                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Gestion" Text="Gestion por Usuario" Visible="false"/></li>
+                               <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Gestion" Text="Gestion Detalles" Visible="false"/></li>
                                <li><com:THyperLink NavigateUrl="?page=administrativas.informes.Gestion" Text="Pagos" Visible="false"/></li>
                                
                             </ul>
