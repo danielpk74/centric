@@ -11,6 +11,8 @@ class ConsultarGestion extends TPage {
         parent::OnInit($param);
         if (!$this->IsPostBack) {
             $this->TxtIdTercero2->Focus();
+
+            $this->CargarUsuarios();
         }
     }
 
@@ -63,46 +65,50 @@ class ConsultarGestion extends TPage {
     public function Buscar() {
         $condicion = "";
 
-
-
-        
-        if ($this->TxtIdTercero2->Text != "" && is_numeric($this->TxtIdTercero2->Text)) {
-            if ($this->TxtNroDocumento->Text != "" && is_numeric($this->TxtNroDocumento->Text))
-                $condicion = " AND obligaciones.NrObligacion = " . $this->TxtNroDocumento->Text;
-
-            $sql = "SELECT obligaciones.*, CONCAT(terceros.Nombre,'',terceros.Nombre2) as Nombres, CONCAT(terceros.Apellido1,'',terceros.Apellido2) as Apellidos, terceros.NombreCorto
-                     FROM terceros INNER JOIN obligaciones ON terceros.Identificacion = obligaciones.IdTercero
-                     WHERE terceros.Identificacion = " . $this->TxtIdTercero2->Text . $condicion;
-
-            $Obligaciones = new ObligacionesRecord();
-            $Obligaciones = ObligacionesRecord::finder('ObligacionesExtRecord')->findAllBySql($sql);
-        }
-
-
+        // busqueda por el numero de factura
         if ($this->TxtNroDocumento->Text != "" && is_numeric($this->TxtNroDocumento->Text)) {
-            $sql = "SELECT obligaciones.*, CONCAT(terceros.Nombre,'',terceros.Nombre2) as Nombres, CONCAT(terceros.Apellido1,'',terceros.Apellido2) as Apellidos, terceros.NombreCorto
-                     FROM terceros INNER JOIN obligaciones ON terceros.Identificacion = obligaciones.IdTercero
-                     WHERE obligaciones.NrObligacion = " . $this->TxtNroDocumento->Text;
-
-            $Obligaciones = new ObligacionesRecord();
-            $Obligaciones = ObligacionesRecord::finder('ObligacionesExtRecord')->findAllBySql($sql);    
+            $condicion .= " AND obligaciones.NrObligacion = " . $this->TxtNroDocumento->Text;
         }
+
+        // Busqueda por la identificacion del moroso
+        if ($this->TxtIdTercero2->Text != "" && is_numeric($this->TxtIdTercero2->Text)) {
+            $condicion .= " AND terceros.Identificacion = " . $this->TxtIdTercero2->Text;
+        }
+
+        // Busqueda por la fecha de gestion
+        if ($this->DtpFhDesde->Text != "" && $this->DtpFhHasta->Text != "") {
+            $condicion .= " AND gestion.FechaGestion >= '" . $this->DtpFhDesde->Text . " 00:00:00' AND gestion.FechaGestion <= '" . $this->DtpFhHasta->Text . " 23:59:59'";
+        }
+        
+        // Busqueda por la fecha de gestion
+        if ($this->CboUsuarios->SelectedValue != "") {
+            $condicion .= " AND gestion.Usuario = '" . $this->CboUsuarios->SelectedValue ."'";
+        }
+
+        $sql = "SELECT obligaciones.*, CONCAT(terceros.Nombre,'',terceros.Nombre2) as Nombres, CONCAT(terceros.Apellido1,'',terceros.Apellido2) as Apellidos, terceros.NombreCorto
+                     FROM ((terceros INNER JOIN obligaciones ON terceros.Identificacion = obligaciones.IdTercero) LEFT JOIN gestion on obligaciones.CodObligacion = gestion.CodObligacion)                     
+                     WHERE 1 = 1";
+
+        $Obligaciones = new ObligacionesRecord();
+        $Obligaciones = ObligacionesRecord::finder('ObligacionesExtRecord')->findAllBySql($sql . " " . $condicion);
 
         if (Count($Obligaciones) == 0) {
-            $this->NoRegistros->Text = "No se ha hecho gestión a la obligación seleccionada.";
-        }else 
-        {
+            $this->PnlError->Visible = true;
+            $this->LblError->Text = "No se encontraron registros con el filtro especificado";
+        } else {
             $this->ADGObligaciones->DataSource = $Obligaciones;
             $this->ADGObligaciones->dataBind();
+
+            $this->PnlError->Visible = false;
+            $this->LblError->Text = "";
+            $this->NoRegistros->Text = "";
         }
-
-
 
 //        $this->BuscarVentas();
 //        $this->BuscarPagos();
 //        $this->Totales();
     }
-    
+
     public function OcultarModal() {
         $this->mpnlGestion->Hide();
     }
@@ -145,12 +151,12 @@ class ConsultarGestion extends TPage {
             $arTercero = new TercerosRecord();
             $arTercero = TercerosRecord::finder()->findByPk($this->TxtIdTercero->Text);
 
-            $this->LblContacto->Text = $arTercero->Contacto;
-            $this->LblTelefono->Text = $arTercero->Telefono;
-            $this->LblDireccion->Text = $arTercero->Direccion;
-
-            $Saldo = TercerosRecord::CalcularSaldoTercero($this->TxtIdTercero->Text);
-            $this->LblSaldoCartera->Text = number_format($Saldo, 2, ',', '.');
+//            $this->LblContacto->Text = $arTercero->Contacto;
+//            $this->LblTelefono->Text = $arTercero->Telefono;
+//            $this->LblDireccion->Text = $arTercero->Direccion;
+//
+//            $Saldo = TercerosRecord::CalcularSaldoTercero($this->TxtIdTercero->Text);
+//            $this->LblSaldoCartera->Text = number_format($Saldo, 2, ',', '.');
         }
     }
 
@@ -202,7 +208,7 @@ class ConsultarGestion extends TPage {
     }
 
     public function MostrarGestion($sender, $param) {
-        $Gestion = GestionRecord::DevGestionXMoroso($sender->Parent->Parent->ClmCodObligacion->Text, $sender->Parent->Parent->ClmIdTercero->Text);
+        $Gestion = GestionRecord::DevGestionXMoroso($sender->Parent->Parent->ClmCodObligacion->Text, $this->CboUsuarios->SelectedValue);
 
         $this->ADGGestion->DataSource = $Gestion;
         $this->ADGGestion->dataBind();
@@ -212,6 +218,16 @@ class ConsultarGestion extends TPage {
 
     public function Imprimir() {
         ImprimirEstadoCuenta::general($this->TxtIdTercero->Text);
+    }
+
+    /**
+     * Carga de gestores
+     * */
+    private function CargarUsuarios() {
+        $Usuarios = UsuariosRecord::Usuarios();
+
+        $this->CboUsuarios->DataSource = $Usuarios;
+        $this->CboUsuarios->dataBind();
     }
 
     public function pagerCreated($sender, $param) {

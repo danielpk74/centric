@@ -45,6 +45,21 @@
                 <tr>
                     <td>
                         <div class="input-prepend">
+                            <span class="add-on-zikmont">Gestor</span>
+                        </div>
+                    </td>
+                    <td>
+                    <com:TActiveDropDownList ID="CboUsuarios"
+                                PromptText="(Seleccione Gestor)"
+                                CausesValidation="false"
+                                DataTextField="Usuario"
+                                DataValueField="Usuario"/>
+                </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="input-prepend">
                             <span class="add-on-zikmont">Nro. Factura</span>
                         </div>
                     </td>
@@ -70,7 +85,7 @@
                 </td>
                 </tr>
 
-                <tr>
+<!--                <tr>
                     <td>
                         <div class="input-prepend">
                             <span class="add-on-zikmont">Contacto</span>
@@ -80,7 +95,7 @@
                 <com:TActiveLabel ID="LblContacto"/>
                 </td>
 
-                </tr>
+                </tr>-->
 
                 <tr>
                     <td>
@@ -288,7 +303,13 @@
             </com:TTemplateColumn>
 
         </com:TActiveDataGrid>
+<com:TLabel ID="NoRegistros" />
 
+<com:TActivePanel CssClass="alert alert-error" ID="PnlError" visible="false">
+    <strong>Advertencia:</strong> 
+    
+    <com:TLabel ID="LblError"></com:TLabel>
+</com:TActivePanel>
 
         <br/><br/>
 </com:TContent>
