@@ -1,38 +1,41 @@
 <%@ MasterClass="Application.layouts.MainLayout" Title="Centric"%>
 <com:TContent ID="Main">
+    
+    <script>
+        function foco(nombreObjeto)
+        {
+            $("ctl0_Main_TxtRangos").focus();
+        }
+    </script>
+        
 
     <div class="post">
-
         <h3 class="title">Asignar Tareas</h3><hr/>        
         
         <ul class="nav nav-tabs">
             <li class="active"><a href="#gestores" data-toggle="tab">Asignar a Gestor</a></li>
             <li><a href="#conceptos" data-toggle="tab">Asignar Aleatoriamente</a></li>                        
             
-            <com:TActiveButton ID="ABtnFiltrar" CssClass="btn btn-mini" Text="Buscar" style="float: right;" OnClick="FiltrarObligaciones">
-                <prop:ClientSide OnLoading="Element.show('loadingDiv')" OnComplete="Element.hide('loadingDiv')"/>
-            </com:TActiveButton>   
             
-            <com:TActiveDropDownList ID="CboCampanas" DataTextField="NombreCampana" DataValueField="IdCampana" style="float: right;" PromptText="(Seleccione Campaña)"/>
-            <com:TDropDownList ID="CboEmpresas" style="float: right;"  PromptText="(Seleccione Empresa)" DataTextField="NombreCorto" DataValueField="Identificacion"/>    
-            
-                        
-            <com:TButton ID="ABtnFildtrar" Text="Buscar" style="float: right;"  Visible="false" OnClick="FiltrarObligaciones"/>
+           
         </ul>
 
         <div class="tab-content">
             <div class="tab-pane active" id="gestores">                
                 <fieldset id="fieldset-info">
-                    <legend>
                        <com:TActiveDropDownList ID="CboUsuarios"
                             PromptText="(Seleccione Gestor)"
                             CausesValidation="false"
                             DataTextField="Usuario"
-                            DataValueField="Usuario"/>
-                    
-                    </legend>
+                            DataValueField="Usuario"/>  
+                       
+                       <com:TActiveDropDownList ID="CboCampanas" DataTextField="NombreCampana" DataValueField="IdCampana" PromptText="(Asignar Campaña)"/>
+                    <com:THyperLink CssClass="btn btn-info" Text="Mas filtros" style="float: right" NavigateUrl="#" Attributes.OnClick="Effect.toggle('fieldset-otros-filtros', 'appear');return false"/>
                 </fieldset>
+                <hr>
             </div>
+            
+            
             
             <div class="tab-pane" id="conceptos">
                 <fieldset id="fieldset-info">
@@ -46,22 +49,34 @@
         
         <!-- Formulario Busqueda-->
         <div id="loadingDiv" style="display:none; position: absolute;top:50%;left:50%;width:100px;z-index: 6"><img src="img/cargando.gif" />Cargando...</div>    
-            <com:THyperLink Text="Mas filtros"  Attributes.OnClick="Effect.toggle('fieldset-otros-filtros', 'appear');return false"/>
-     
             <fieldset id="fieldset-otros-filtros" style="display:none; position: relative;">                    
-                <com:TLabel Text="Saldos" Font.Bold="true"/>
-                <com:TDropDownList ID="CboRangos"/> 
-                <com:TTextBox ID="TxtRangos" /> 
+                <div class="well">
+                    
+                    <com:TDropDownList style="margin-top: -2px" CssClass="span2" ID="CboRangos" Attributes.OnChanged="foco(Ctrl0)"/> 
+                    
+                    <com:TTextBox ID="TxtRangos" /> 
 
-                <com:TRangeValidator
-                    EnableClientScript="true"
-                    ControlToValidate="TxtRangos"
-                    DataType="Integer"                                                
-                    ErrorMessage="Solo se permiten n&uacute;meros." /> 
+                    <com:TRangeValidator
+                        EnableClientScript="true"
+                        ControlToValidate="TxtRangos"
+                        DataType="Integer"                                                
+                        ErrorMessage="Solo se permiten n&uacute;meros." /> 
 
-                <com:TCheckBox ID="ChkCompromisos" Text="Compromisos de Pago" Visible="False" /> 
-                <com:TCheckBox ID="ChkAcuerdosIncumplidos" Text=" Acuerdos Incumplidos"  Visible="False"/>          
-                <hr>
+                    <com:TCheckBox ID="ChkCompromisos" Text="Compromisos de Pago" Visible="False" /> 
+                    <com:TCheckBox ID="ChkAcuerdosIncumplidos" Text=" Acuerdos Incumplidos"  Visible="False"/>          
+                    
+                    <br>
+                    <com:TDropDownList ID="CboEmpresas" PromptText="(Seleccione Empresa)" DataTextField="NombreCorto" DataValueField="Identificacion"/>    
+                    
+                    <hr>
+                    <com:TActiveButton ID="ABtnCerrarFiltro" CssClass="btn btn-danger" Text="Cerrar" >
+                        <prop:ClientSide OnComplete="Element.hide('fieldset-otros-filtros')"/>
+                    </com:TActiveButton>       
+
+                    <com:TActiveButton ID="ABtnFiltrar" CssClass="btn btn-success" Text="Buscar"  OnClick="FiltrarObligaciones">
+                        <prop:ClientSide OnLoading="Element.show('loadingDiv')" OnComplete="Element.hide('loadingDiv')"/>
+                    </com:TActiveButton>       
+                </div>
             </fieldset>
         </form>  
 
@@ -144,16 +159,12 @@
 
         </com:TActiveDataGrid>
 
-        <com:TActiveImageButton ID="IBtnAsignar2" ImageUrl="img/aceptar.png" OnClick="AsignarTareaUsuarios" ToolTip="Asignar Tareas Seleccionadas" Style="Float:right">
+        
+        <com:TActiveButton ID="IBtnAsignar2" CssClass="btn btn-primary" OnClick="AsignarTareaUsuarios" ToolTip="Asignar Tareas Seleccionadas" Style="Float:right" Text="Asignar Tareas">
             <prop:ClientSide OnLoading="Element.show('loadingDiv')" OnComplete="Element.hide('loadingDiv')"/>
-        </com:TActiveImageButton>
+        </com:TActiveButton>    
         
         
-        <com:TButton Text="Asignar" OnClick="AsignarTareaUsuarios"/>
-       
-        <com:TActiveImageButton Visible="false" ID="IBtnAsignar" ImageUrl="img/aceptar.png" OnCallBack="AsignarTareaUsuarios" ToolTip="Asignar Tareas Seleccionadas" Style="Float:right">
-            <prop:ClientSide OnLoading="Element.show('loadingDiv')" OnComplete="Element.hide('loadingDiv')"/>
-        </com:TActiveImageButton>
 
     </com:TActivePanel>
         </div>

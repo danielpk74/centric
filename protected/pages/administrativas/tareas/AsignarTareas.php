@@ -52,7 +52,7 @@ class AsignarTareas extends TPage {
      * Genera un array de rangos de busqueda y los carga a un 
      * */
     private function CargarRangos() {
-        $Rangos = array('' => '(Seleccione)', '<' => 'Menores que', '<=' => 'Menores Iguales que', '=' => 'Iguales que', '>' => 'Mayores que', '>=' => 'Mayores Iguales que');
+        $Rangos = array('' => '(Con Saldos)', '<' => 'Menores que', '<=' => 'Menores Iguales que', '=' => 'Iguales que', '>' => 'Mayores que', '>=' => 'Mayores Iguales que');
 
         $this->CboRangos->DataSource = $Rangos;
         $this->CboRangos->dataBind();
